@@ -19,6 +19,13 @@ else
         Plugin 'gmarik/Vundle.vim'
         Plugin 'matze/vim-move'
         Plugin 'The-NERD-Commenter'
+        Plugin 'YouCompleteMe'
+        Plugin 'The-NERD-tree'
+        Plugin 'nerdtree-ack'
+        Plugin 'NERD_Tree-and-ack'
+        Plugin 'FindInNERDTree'
+        Plugin 'NERD_tree-Project'
+        
         " инициализация плагинов
         "Plugin 'mimicpak.vim'
         "Plugin 'color_sample_pack.vim'
@@ -51,6 +58,13 @@ set wrap                        " переносить длинные строк
 set ai                          " включить автоотступы для новых строк
 set cin                         " включить отступы в стиле Си
 
+" GUI настройки видимости меню и элементов
+if has("gui_running")
+    "set guioptions-=m  " убрать боковое меню
+    set guioptions-=T  " убрать панель инструментов
+    "set guioptions-=r  " убрать вертикальный скролл
+    "set guioptions-=L  " убрать горизонтальный скролл
+endif
 " подсветка результатов поиска и совпадения скобок
 set showmatch
 set hlsearch
@@ -58,9 +72,10 @@ set incsearch
 set ignorecase
 
 " исправление клавиши удаления и дел
-let &backspace = 2
-let &tabstop = 4		" количество символов при табах
-let &shiftwidth = 4		"
+let &backspace=2
+let &tabstop=4		    " количество символов при табах
+let &shiftwidth=4		"
+
 
 " поддержка командного режима при русской раскладке
 set keymap=russian-jcukenwin
@@ -77,6 +92,21 @@ highlight lCursor guifg=NONE guibg=Cyan
 " убрать подсветку
 nnoremap <esc> :noh<return><esc>
 map <F7> :set hlsearch!<CR>
+
+" назначить ctrl / для комментирования
+"nmap <C-/> :<CR>
+" C-/ - комментировать/раскомментировать (при помощи NERD_Comment)
+"let mapleader=","
+"map  <C-1> ,cc
+"nmap <C-_> ,ci
+"imap <C-_> <ESC>,cii
+ nmap <C-1> \c 
+ vmap <C-1> \c 
+" F12 - обозреватель файлов (:Ex для стандартного обозревателя,
+" плагин NERDTree - дерево каталогов)
+map <F12> :NERDTreeToggle<cr>
+vmap <F12> <esc>:NERDTreeToggle<cr>i
+imap <F12> <esc>:NERDTreeToggle<cr>i
 
 " set the 'cpoptions' to its Vim default
 if 1	" only do this when compiled with expression evaluation
@@ -121,7 +151,7 @@ imap <S-Insert>		<C-V>
 vmap <S-Insert>		<C-V>
 
 " Use CTRL-Q to do what CTRL-V used to do
-noremap <C-Q>		<C-V
+noremap <C-Q>		<C-V>
 " бэкап
 " " бэкапыы>
 
@@ -198,5 +228,12 @@ function! BackupDir()
    " переопределим расширение файла резервной копии
    let &backupext=strftime('~%Y-%m-%d~')
 endfunction
-
-  
+" помнить историю буфера даже после закрытия файлов
+if version >= 700
+    set history=64
+    set undolevels=128
+    set undodir=~/.vim/undodir/
+    set undofile
+    set undolevels=1000
+    set undoreload=10000
+endif 
