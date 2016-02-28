@@ -26,12 +26,12 @@ else
         Plugin 'FindInNERDTree'
         Plugin 'NERD_tree-Project'
         
-        " инициализация плагинов
+        " инициализация плагинов из папки plugin
         "Plugin 'mimicpak.vim'
         "Plugin 'color_sample_pack.vim'
         call vundle#end()
 
-        "colorscheme desert " цветовая схема
+        "colorscheme intellij " цветовая схема
         colorscheme molokai
 endif
         filetype plugin indent on               " поддержка отступов
@@ -93,15 +93,12 @@ highlight lCursor guifg=NONE guibg=Cyan
 nnoremap <esc> :noh<return><esc>
 map <F7> :set hlsearch!<CR>
 
-" назначить ctrl / для комментирования
-"nmap <C-/> :<CR>
-" C-/ - комментировать/раскомментировать (при помощи NERD_Comment)
+" C-\ - комментировать/раскомментировать (при помощи NERD_Comment)
 "let mapleader=","
-"map  <C-1> ,cc
-"nmap <C-_> ,ci
-"imap <C-_> <ESC>,cii
- nmap <C-1> \c 
- vmap <C-1> \c 
+nmap <C-\> :call NERDComment(0, "toggle")<cr>
+vmap <C-\><esc>:call NERDComment(1, "toggle")<cr>
+imap <C-\>:call NERDComment(0, "toggle")<cr>
+
 " F12 - обозреватель файлов (:Ex для стандартного обозревателя,
 " плагин NERDTree - дерево каталогов)
 map <F12> :NERDTreeToggle<cr>
