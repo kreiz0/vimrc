@@ -1,5 +1,4 @@
 set nocompatible                                " отключить совместимость с vi
-set number                                      " показывать номера строк
 
 let &lines = 34                                 " количество линий при открытии окна
 let &columns = 110                              " количество колонок при открытии окна    
@@ -19,13 +18,19 @@ else
         Plugin 'gmarik/Vundle.vim'
         Plugin 'matze/vim-move'
         Plugin 'The-NERD-Commenter'
-        Plugin 'YouCompleteMe'
         Plugin 'The-NERD-tree'
         Plugin 'nerdtree-ack'
         Plugin 'NERD_Tree-and-ack'
         Plugin 'FindInNERDTree'
         Plugin 'NERD_tree-Project'
-        
+        " плагины для синтаксиса
+        "Plugin 'Valloric/YouCompleteMe' , { 'do': './install.sh --gocode-completer' }
+        Plugin 'fatih/vim-go'
+        Plugin 'Shougo/neocomplete'
+        Plugin 'Shougo/neosnippet'
+        Plugin 'Shougo/neosnippet-snippets'
+        Plugin 'garyburd/go-explorer'
+        Plugin 'majutsushi/tagbar'
         " инициализация плагинов из папки plugin
         "Plugin 'mimicpak.vim'
         "Plugin 'color_sample_pack.vim'
@@ -34,21 +39,33 @@ else
         "colorscheme intellij " цветовая схема
         colorscheme molokai
 endif
-        filetype plugin indent on               " поддержка отступов
+filetype plugin indent on                       " идентификация и подключение плагинов в соответствии с файломы
 syntax on                                       " автоподсветка синтаксиса
 set lz                                          " ленивая перерисовка экрана
 
-" бэкапы
-set nobackup 	     " не делать бэкапы
-set nowritebackup    " не делать бекапы во время набора текста
-set noswapfile 	     " не делать свопыы
 
-" навигация
+" ==================== табы ===================="{{{
 set smarttab
 set et                          " включить автозамену по умолчанию
 set nostartofline 	   		 	" не менять позицию курсора при прыжках по буферу
+set number                      " показывать номера строк
 let &scrolloff = 1	        	" сколько строк внизу и вверху экрана показывать при скроллинге
+" ==================== табы ===================="}}}
 
+" ==================== сворачивание ===================="{{{
+"zc - свернуть блок
+"zo - развернуть блок
+"zM - закрыть все блоки
+"zR - открыть все блоки
+"za - инвертирование
+"zf - свернуть выделенное
+set foldenable                  "включить свoрачивание
+set foldmethod=syntax           "сворачивание на основе синтаксиса
+set foldmethod=indent           "сворачивание на основе отступов
+set foldmethod=manual           "выделяем участок с помощью v и говорим zf
+set foldmethod=marker           "сворачивание на основе маркеров в тексте
+set foldmarker={{{,}}}          "задаем маркеры начала и конца блока
+" ==================== сворачивание ===================="}}}
 
 " Показываем табы в начале строки точками
 "set listchars=tab:··
@@ -77,27 +94,27 @@ let &tabstop=4		    " количество символов при табах
 let &shiftwidth=4		"
 
 
-" поддержка командного режима при русской раскладке
+" поддержка командного режима при русской раскладке (нихуя не работает)
 set keymap=russian-jcukenwin
 set iminsert=0
 set imsearch=0
 highlight lCursor guifg=NONE guibg=Cyan
 
 
-" ремаринг основных сочетаний клавишь
+" ==================== keymap ===================="{{{
 "
-"  1{{{
-" ~~~~~~~~~~~~~~~~
 
+map <C-]> :YcmCompleter GoToImprecise<CR>
 " убрать подсветку
 nnoremap <esc> :noh<return><esc>
 map <F7> :set hlsearch!<CR>
-
+" показать теги текущего файлаы
+map <F8> :TagbarToggle<CR>
 " C-\ - комментировать/раскомментировать (при помощи NERD_Comment)
 "let mapleader=","
 nmap <C-\> :call NERDComment(0, "toggle")<cr>
-vmap <C-\><esc>:call NERDComment(1, "toggle")<cr>
-imap <C-\>:call NERDComment(0, "toggle")<cr>
+vmap <C-\> :call NERDComment(0, "toggle")<cr>
+imap <C-\> :call NERDComment(0, "toggle")<cr>
 
 " F12 - обозреватель файлов (:Ex для стандартного обозревателя,
 " плагин NERDTree - дерево каталогов)
@@ -204,9 +221,49 @@ if 1
   let &cpoptions = s:save_cpo
   unlet s:save_cpo
 endif
-"~~~~~~~~~~~~~~~~~~~~
-"}}}1
-"
+" ==================== keymaps ===================="}}}
+
+" ==================== vim-go ===================="{{{
+let g:go_fmt_command = "goimports"
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_interfaces = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_build_constraints = 1
+" ==================== vim-go ===================="}}}
+
+" ==================== neocomplete ===================="{{{
+let g:neocomplete#enable_at_startup = 1
+" ==================== neocomplete ===================="}}}
+
+" ==================== YouCompleteMe ===================="{{{
+"let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
+"let g:ycm_add_preview_to_completeopt = 1
+"let g:ycm_autoclose_preview_window_after_completion = 1
+"let g:ycm_min_num_of_chars_for_completion = 1
+"let g:ycm_min_num_of_chars_for_completion = 1
+""let g:ycm_auto_trigger = 1
+""set completeopt-=preview
+"let g:ycm_semantic_triggers =  {
+  "\   'c' : ['->', '.'],
+  "\   'objc' : ['->', '.'],
+  "\   'ocaml' : ['.', '#'],
+  "\   'cpp,objcpp' : ['->', '.', '::'],
+  "\   'perl' : ['->'],
+  "\   'php' : ['->', '::'],
+  "\   'cs,java,javascript,d,python,perl6,scala,vb,elixir,go' : ['.'],
+  "\   'vim' : ['re![_a-zA-Z]+[_\w]*\.'],
+  "\   'ruby' : ['.', '::'],
+  "\   'lua' : ['.', ':'],
+  "\   'erlang' : [':'],
+  "\ }
+" ==================== YouCompleteMe ===================="}}}
+
+" ==================== бэкапы ===================="{{{
+set nobackup 	     " не делать бэкапы
+set nowritebackup    " не делать бекапы во время набора текста
+set noswapfile 	     " не делать свопыы
 """ Сохранять умные резервные копии ежедневно
 function! BackupDir()
    " определим каталог для сохранения резервной копии
@@ -233,4 +290,5 @@ if version >= 700
     set undofile
     set undolevels=1000
     set undoreload=10000
-endif 
+endif
+" ==================== бэкапы ===================="}}}
