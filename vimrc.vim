@@ -31,6 +31,7 @@ else
         Plugin 'Shougo/neosnippet-snippets'
         Plugin 'garyburd/go-explorer'
         Plugin 'majutsushi/tagbar'
+        Plugin 'pangloss/vim-javascript'
         " инициализация плагинов из папки plugin
         "Plugin 'mimicpak.vim'
         "Plugin 'color_sample_pack.vim'
@@ -49,8 +50,11 @@ set smarttab
 set et                          " включить автозамену по умолчанию
 set nostartofline 	   		 	" не менять позицию курсора при прыжках по буферу
 set number                      " показывать номера строк
-let &scrolloff = 1	        	" сколько строк внизу и вверху экрана показывать при скроллинге
 " ==================== табы ===================="}}}
+
+" ==================== скролл ===================="{{{
+let &scrolloff = 0 " сколько строк внизу и вверху экрана показывать при скроллинге
+" ==================== скролл ===================="}}}
 
 " ==================== сворачивание ===================="{{{
 "zc - свернуть блок
@@ -170,9 +174,9 @@ noremap <C-Q>		<C-V>
 " " бэкапыы>
 
 " Use CTRL-S for saving, also in Insert mode
-noremap <C-S>		:update<CR>
-vnoremap <C-S>		<C-C>:update<CR>
-inoremap <C-S>		<C-O>:update<CR>
+noremap <C-s>		:update<CR>
+vnoremap <C-s>		<C-C>:update<CR>
+inoremap <C-s>		<C-O>:update<CR>
 
 " For CTRL-V to work autoselect must be off.
 " On Unix we have two selections, autoselect can be used.
@@ -224,17 +228,34 @@ endif
 " ==================== keymaps ===================="}}}
 
 " ==================== vim-go ===================="{{{
-let g:go_fmt_command = "goimports"
+"let g:go_fmt_command = "goimports"
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
 let g:go_highlight_structs = 1
 let g:go_highlight_interfaces = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
+"let g:go_fmt_autosave = 0
 " ==================== vim-go ===================="}}}
+
+" ==================== vim-javascript ===================="{{{
+let g:javascript_enable_domhtmlcss  = 1
+let g:javascript_conceal_function   = "ƒ"
+let g:javascript_conceal_null       = "ø"
+let g:javascript_conceal_this       = "@"
+let g:javascript_conceal_return     = "⇚"
+let g:javascript_conceal_undefined  = "¿"
+let g:javascript_conceal_NaN        = "ℕ"
+let g:javascript_conceal_prototype  = "¶"
+let g:javascript_conceal_static     = "•"
+let g:javascript_conceal_super      = "Ω"
+" ==================== vim-javascript ===================="}}}
+
+
 
 " ==================== neocomplete ===================="{{{
 let g:neocomplete#enable_at_startup = 1
+set completeopt-=preview
 " ==================== neocomplete ===================="}}}
 
 " ==================== YouCompleteMe ===================="{{{
