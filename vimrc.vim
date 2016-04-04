@@ -1,20 +1,17 @@
-set nocompatible                                " отключить совместимость с vi
-
-let &lines = 34                                 " количество линий при открытии окна
-let &columns = 110                              " количество колонок при открытии окна    
-
 " подключение плагинов, только для ubuntu
 if has('win32')
     " порядок применения кодировок и формата файлов
     "set ffs=unix,dos,mac
     "set fencs=utf-8,cp1251,koi8-r,ucs-2,cp866
 else
-        filetype off                            " для установки плагинов
         " Vundle инициализация
         set rtp+=~/.vim/bundle/Vundle.vim
         "set rtp+=/home/jaime/.vim/vimrc/plugin
         "set runtimepath=$XDG_CONFIG_HOME/vim,/$XDG_CONFIG_HOME/vim/after,/usr/share/vim/vimfiles,/usr/share/vim/vim74,/usr/share/vim/vimfiles/after,/home/jaime/.vim/bundle/Vundle.vim,/home/jaime/.vim/vimrc/plugin
         call vundle#begin()
+        Plugin 'tpope/vim-fugitive'
+        Plugin 'itchyny/lightline.vim'
+        Plugin 'wincent/command-t'
         Plugin 'gmarik/Vundle.vim'
         Plugin 'matze/vim-move'
         Plugin 'The-NERD-Commenter'
@@ -24,59 +21,26 @@ else
         Plugin 'FindInNERDTree'
         Plugin 'NERD_tree-Project'
         " плагины для синтаксиса
-        "Plugin 'Valloric/YouCompleteMe' , { 'do': './install.sh --gocode-completer' }
+        Plugin 'Valloric/YouCompleteMe', { 'do': './install.sh' }
         Plugin 'fatih/vim-go'
-        Plugin 'Shougo/neocomplete'
-        Plugin 'Shougo/neosnippet'
-        Plugin 'Shougo/neosnippet-snippets'
+        "Plugin 'Shougo/neocomplete'
+        "Plugin 'Shougo/neosnippet'
+        "Plugin 'Shougo/neosnippet-snippets'
         Plugin 'garyburd/go-explorer'
         Plugin 'majutsushi/tagbar'
         Plugin 'pangloss/vim-javascript'
+        
         " инициализация плагинов из папки plugin
         "Plugin 'mimicpak.vim'
         "Plugin 'color_sample_pack.vim'
         call vundle#end()
-
-        "colorscheme intellij " цветовая схема
-        colorscheme molokai
 endif
-filetype plugin indent on                       " идентификация и подключение плагинов в соответствии с файломы
-syntax on                                       " автоподсветка синтаксиса
-set lz                                          " ленивая перерисовка экрана
 
-
-" ==================== табы отступы ===================="{{{
-
-
-set tabstop=4                   "количество пробелов, которыми символ табуляции отображается в тексте. 
-set shiftwidth=4                "регулирование ширины отступов в пробелах, добавляемых командами >> и <<.
-set smarttab                    "добавлению отступа, ширина которого соответствует shiftwidth
-set expandtab                   "в режиме вставки заменяет символ табуляции на соответствующее количество пробелов.
-
-set et                          " включить автозамену по умолчанию
-<<<<<<< HEAD
-set nostartofline 	   		 	" не менять позицию курсора при прыжках по буферу
-set number                      " показывать номера строк
-" ==================== табы ===================="}}}
-=======
-set nostartofline               " не менять позицию курсора при прыжках по буферу
-let &backspace=2
-"let &tabstop=4                 " количество символов при табах
-"let &shiftwidth=4
-set ai                          " включить автоотступы для новых строк
-set cin                         " включить отступы в стиле Си
-"set listchars=tab:··           " показываем табы в начале строки точками
-"set list
-" ==================== табы отступы ===================="}}}
-
-" ==================== скролл ===================="{{{
-let &scrolloff = 0 " сколько строк внизу и вверху экрана показывать при скроллинге
-" ==================== скролл ===================="}}}
->>>>>>> 18562e8ccc4e336c053da0d30aecfebdefe5c339
-
-" ==================== скролл ===================="{{{
-let &scrolloff = 0 " сколько строк внизу и вверху экрана показывать при скроллинге
-" ==================== скролл ===================="}}}
+" ==================== global settings ===================="{{{
+set nocompatible                 " отключить совместимость с vi
+filetype off                     " для установки плагинов
+filetype plugin indent on        " идентификация и подключение плагинов в соответствии с файломы
+" ==================== global settings ===================="}}}
 
 " ==================== сворачивание ===================="{{{
 "zc - свернуть блок
@@ -93,10 +57,39 @@ set foldmethod=marker           "сворачивание на основе ма
 set foldmarker={{{,}}}          "задаем маркеры начала и конца блока
 " ==================== сворачивание ===================="}}}
 
+" ==================== scroll ===================="{{{
+let &scrolloff = 0 " сколько строк внизу и вверху экрана показывать при скроллинге
+" ==================== scroll ===================="}}}
 
+" ==================== табы отступы ===================="{{{
+set tabstop=4                   "количество пробелов, которыми символ табуляции отображается в тексте. 
+set shiftwidth=4                "регулирование ширины отступов в пробелах, добавляемых командами >> и <<.
+set smarttab                    "добавлению отступа, ширина которого соответствует shiftwidth
+set expandtab                   "в режиме вставки заменяет символ табуляции на соответствующее количество пробелов.
+
+set et                          " включить автозамену по умолчанию
+set nostartofline 	   		 	" не менять позицию курсора при прыжках по буферу
+set number                      " показывать номера строк
+set nostartofline               " не менять позицию курсора при прыжках по буферу
+let &backspace=2
+"let &tabstop=4                 " количество символов при табах
+"let &shiftwidth=4
+set ai                          " включить автоотступы для новых строк
+set cin                         " включить отступы в стиле Си
+"set listchars=tab:··           " показываем табы в начале строки точками
+"set list
+" ==================== табы отступы ===================="}}}
+
+" ==================== colorscheme ===================="{{{
+        "colorscheme intellij " цветовая схема
+        colorscheme molokai
+" ==================== colorscheme ===================="}}}
+
+" ==================== window gui ===================="{{{
+let &lines = 34                 " количество линий при открытии окна
+let &columns = 110              " количество колонок при открытии окна
 set wrap                        " переносить длинные строки
 set number                      " показывать номера строк
-
 " GUI настройки видимости меню и элементов
 if has("gui_running")
     "set guioptions-=m  " убрать боковое меню
@@ -104,22 +97,97 @@ if has("gui_running")
     "set guioptions-=r  " убрать вертикальный скролл
     "set guioptions-=L  " убрать горизонтальный скролл
 endif
+" ==================== window gui ===================="}}}
+
+" ==================== highlight ===================="{{{
+set showcmd                     " Show me what I'm typing
+set showmode                    " Show current mode.
+set noshowmode                  " We show the mode with airlien or lightline
+set nocursorcolumn
+set nocursorline
+highlight SignColumn guibg=#272822
+" Remove search highlight
+nnoremap <leader><space> :nohlsearch<CR>
+set laststatus=2
+
+let g:lightline = {
+      \ 'colorscheme': 'landscape',
+      \ 'mode_map': { 'c': 'NORMAL' },
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ] ]
+      \ },
+      \ 'component_function': {
+      \   'modified': 'LightLineModified',
+      \   'readonly': 'LightLineReadonly',
+      \   'fugitive': 'LightLineFugitive',
+      \   'filename': 'LightLineFilename',
+      \   'fileformat': 'LightLineFileformat',
+      \   'filetype': 'LightLineFiletype',
+      \   'fileencoding': 'LightLineFileencoding',
+      \   'mode': 'LightLineMode',
+      \ },
+      \ 'separator': { 'left': '⮀', 'right': '⮂' },
+      \ 'subseparator': { 'left': '⮁', 'right': '⮃' }
+      \ }
+
+function! LightLineModified()
+  return &ft =~ 'help\|vimfiler\|gundo' ? '' : &modified ? '+' : &modifiable ? '' : '-'
+endfunction
+function! LightLineReadonly()
+  return &ft !~? 'help\|vimfiler\|gundo' && &readonly ? '⭤' : ''
+endfunction
+function! LightLineFilename()
+  return ('' != LightLineReadonly() ? LightLineReadonly() . ' ' : '') .
+        \ (&ft == 'vimfiler' ? vimfiler#get_status_string() :
+        \  &ft == 'unite' ? unite#get_status_string() :
+        \  &ft == 'vimshell' ? vimshell#get_status_string() :
+        \ '' != expand('%:t') ? expand('%:t') : '[No Name]') .
+        \ ('' != LightLineModified() ? ' ' . LightLineModified() : '')
+endfunction
+function! LightLineFugitive()
+  if &ft !~? 'vimfiler\|gundo' && exists("*fugitive#head")
+    let _ = fugitive#head()
+    return strlen(_) ? '⭠ '._ : ''
+  endif
+  return ''
+endfunction
+function! LightLineFileformat()
+  return winwidth(0) > 70 ? &fileformat : ''
+endfunction
+function! LightLineFiletype()
+  return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype : 'no ft') : ''
+endfunction
+function! LightLineFileencoding()
+  return winwidth(0) > 70 ? (strlen(&fenc) ? &fenc : &enc) : ''
+endfunction
+function! LightLineMode()
+  return winwidth(0) > 60 ? lightline#mode() : ''
+endfunction
+" ==================== highlight ===================="}}}
+
 " подсветка результатов поиска и совпадения скобок
 set showmatch
-set hlsearch
-set incsearch
-set ignorecase
+set hlsearch                    " Highlight found searches
+set incsearch                   " Shows the match while typing
+set ignorecase                  " Search case insensitive...
+set smartcase                   " ... but not when search pattern contains upper case characters
+set lz                          " ленивая перерисовка экрана
+set lazyredraw          	    " Wait to redraw "
 
+" ==================== раскладка ===================="{{{
 " поддержка командного режима при русской раскладке (нихуя не работает)
 set keymap=russian-jcukenwin
 set iminsert=0
 set imsearch=0
 highlight lCursor guifg=NONE guibg=Cyan
+" ==================== раскладка ===================="}}}
 
+" ==================== leader ===================="{{{
+let mapleader = ","
+let g:mapleader = ","
+" ==================== leader ===================="}}}
 
 " ==================== keymap ===================="{{{
-"
-
 map <C-]> :YcmCompleter GoToImprecise<CR>
 " убрать подсветку
 nnoremap <esc> :noh<return><esc>
@@ -182,19 +250,11 @@ vmap <S-Insert>     <C-V>
 
 " Use CTRL-Q to do what CTRL-V used to do
 noremap <C-Q>       <C-V>
-" бэкап
-" " бэкапыы>
 
 " Use CTRL-S for saving, also in Insert mode
-<<<<<<< HEAD
 noremap <C-s>		:update<CR>
 vnoremap <C-s>		<C-C>:update<CR>
 inoremap <C-s>		<C-O>:update<CR>
-=======
-noremap <C-s>       :update<CR>
-vnoremap <C-s>      <C-C>:update<CR>
-inoremap <C-s>      <C-O>:update<CR>
->>>>>>> 18562e8ccc4e336c053da0d30aecfebdefe5c339
 
 " For CTRL-V to work autoselect must be off.
 " On Unix we have two selections, autoselect can be used.
@@ -245,36 +305,55 @@ if 1
 endif
 " ==================== keymaps ===================="}}}
 
-" ==================== vim-go ===================="{{{
-"let g:go_fmt_command = "goimports"
-let g:go_highlight_functions = 1
-let g:go_highlight_methods = 1
-let g:go_highlight_structs = 1
-let g:go_highlight_interfaces = 1
-let g:go_highlight_operators = 1
-let g:go_highlight_build_constraints = 1
-"let g:go_fmt_autosave = 0
-" ==================== vim-go ===================="}}}
 
-" ==================== vim-javascript ===================="{{{
-let g:javascript_enable_domhtmlcss  = 1
-let g:javascript_conceal_function   = "ƒ"
-let g:javascript_conceal_null       = "ø"
-let g:javascript_conceal_this       = "@"
-let g:javascript_conceal_return     = "⇚"
-let g:javascript_conceal_undefined  = "¿"
-let g:javascript_conceal_NaN        = "ℕ"
-let g:javascript_conceal_prototype  = "¶"
-let g:javascript_conceal_static     = "•"
-let g:javascript_conceal_super      = "Ω"
-" ==================== vim-javascript ===================="}}}
+" ==================== syntax ===================="{{{
+syntax enable              " автоподсветка синтаксиса
+syntax sync minlines=256
+set t_Co=256
+" speed up syntax highlighting
+set nocursorcolumn
+set nocursorline
+set synmaxcol=300
+set re=1
+set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
+" ==================== syntax ===================="}}}
 
+" ==================== CommandT ===================="{{{
+let g:CommandTMaxHeight = 20
+let g:CommandTMaxFiles = 500000
+let g:CommandTMatchWindowReverse = 1
+let g:CommandTMaxCachedDirectories = 0
+let g:CommandTHighlightColor = 'Typedef'
+nmap <C-t> :CommandT /Users/fatih/Code/koding<cr>
+imap <C-t> <esc>:CommandT /Users/fatih/Code/koding<cr>
+" ==================== CommandT ===================="}}}
 
+" ==================== Fugitive git ===================="{{{
+nnoremap <leader>ga :Git add %:p<CR><CR>
+nnoremap <leader>gs :Gstatus<CR>
+nnoremap <leader>gp :Gpush<CR>
+vnoremap <leader>gb :Gblame<CR>
+" ==================== Fugitive git ===================="}}}
 
-" ==================== neocomplete ===================="{{{
-let g:neocomplete#enable_at_startup = 1
-set completeopt-=preview
-" ==================== neocomplete ===================="}}}
+" ==================== wildmenu ===================="{{{
+set wildmenu
+" set wildmode=list:longest
+set wildmode=list:full
+set wildignore+=.hg,.git,.svn                    " Version control
+set wildignore+=*.aux,*.out,*.toc                " LaTeX intermediate files
+set wildignore+=*.jpg,*.bmp,*.gif,*.png,*.jpeg   " binary images
+set wildignore+=*.o,*.obj,*.exe,*.dll,*.manifest " compiled object files
+set wildignore+=*.spl                            " compiled spelling word lists
+set wildignore+=*.sw?                            " Vim swap files
+set wildignore+=*.DS_Store                       " OSX bullshit
+set wildignore+=*.luac                           " Lua byte code
+set wildignore+=migrations                       " Django migrations
+set wildignore+=go/pkg                           " Go static files
+set wildignore+=go/bin                           " Go bin files
+set wildignore+=go/bin-vagrant                   " Go bin-vagrant files
+set wildignore+=*.pyc                            " Python byte code
+set wildignore+=*.orig                           " Merge resolution files
+" ==================== wildmenu ===================="}}}
 
 " ==================== YouCompleteMe ===================="{{{
 "let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
@@ -297,7 +376,67 @@ set completeopt-=preview
   "\   'lua' : ['.', ':'],
   "\   'erlang' : [':'],
   "\ }
+set complete=.,w,b,u,t
+set completeopt=longest,menuone
+let g:ycm_autoclose_preview_window_after_completion = 1
+let g:ycm_min_num_of_chars_for_completion = 1
 " ==================== YouCompleteMe ===================="}}}
+
+" ==================== go ===================="{{{
+let g:go_fmt_command = "goimports"
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_interfaces = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_build_constraints = 1
+"let g:go_fmt_options = "-tabstop=4 -shiftwidth=4 -smarttab -expandtab"
+"let g:go_fmt_options = "-smarttab"
+"let g:go_goimports_bin = "goimports -tabs=false -tabwidth=4"
+"let g:go_goimports_bin = "goimports -tabstop=4 -shiftwidth=4 -smarttab -expandtab"
+"let g:go_fmt_autosave = 0
+let g:go_fmt_fail_silently = 0
+let g:go_fmt_command = "goimports"
+
+let g:go_autodetect_gopath = 1
+let g:go_highlight_space_tab_error = 0
+let g:go_highlight_array_whitespace_error = 0
+let g:go_highlight_trailing_whitespace_error = 0
+let g:go_highlight_extra_types = 0
+let g:go_highlight_operators = 0
+
+au FileType go nmap <Leader>s <Plug>(go-def-split)
+au FileType go nmap <Leader>v <Plug>(go-def-vertical)
+au FileType go nmap <Leader>in <Plug>(go-info)
+au FileType go nmap <Leader>ii <Plug>(go-implements)
+
+au FileType go nmap <leader>r  <Plug>(go-run)
+au FileType go nmap <leader>b  <Plug>(go-build)
+au FileType go nmap <leader>g  <Plug>(go-gbbuild)
+au FileType go nmap <leader>t  <Plug>(go-test-compile)
+au FileType go nmap <Leader>d <Plug>(go-doc)
+au FileType go nmap <Leader>f :GoImports<CR>
+
+au BufNewFile,BufRead *.go setlocal noet ts=4 sw=4 sts=4
+" ==================== go ===================="}}}
+
+" ==================== vim-javascript ===================="{{{
+let g:javascript_enable_domhtmlcss  = 1
+let g:javascript_conceal_function   = "ƒ"
+let g:javascript_conceal_null       = "ø"
+let g:javascript_conceal_this       = "@"
+let g:javascript_conceal_return     = "⇚"
+let g:javascript_conceal_undefined  = "¿"
+let g:javascript_conceal_NaN        = "ℕ"
+let g:javascript_conceal_prototype  = "¶"
+let g:javascript_conceal_static     = "•"
+let g:javascript_conceal_super      = "Ω"
+" ==================== vim-javascript ===================="}}}
+
+" ==================== neocomplete ===================="{{{
+"let g:neocomplete#enable_at_startup = 1
+"set completeopt-=preview
+" ==================== neocomplete ===================="}}}
 
 " ==================== бэкапы ===================="{{{
 set nobackup         " не делать бэкапы
