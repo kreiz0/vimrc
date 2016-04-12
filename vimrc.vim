@@ -1,4 +1,4 @@
-if has('win32')
+if has('win32') "{{{
     " order applying code
     "set ffs=unix,dos,mac
     "set fencs=utf-8,cp1251,koi8-r,ucs-2,cp866
@@ -11,8 +11,8 @@ else
         Plugin 'ruscmd'
         Plugin 'https://github.com/terryma/vim-multiple-cursors'
         Plugin 'tpope/vim-fugitive'
-        Plugin 'itchyny/lightline.vim'
         Plugin 'wincent/command-t'
+        Plugin 'vim-airline/vim-airline'
         Plugin 'gmarik/Vundle.vim'
         Plugin 'matze/vim-move'
         Plugin 'The-NERD-Commenter'
@@ -27,17 +27,22 @@ else
         Plugin 'garyburd/go-explorer'
         Plugin 'majutsushi/tagbar'
         Plugin 'pangloss/vim-javascript'
+        Plugin 'maksimr/vim-jsbeautify'
         Plugin 'fontsize'
         " plugin init from folder
         "Plugin 'mimicpak.vim
         "Plugin 'color_sample_pack.vim'
         call vundle#end()
-endif
+endif           "}}}
 
 " ==================== global settings ===================="{{{
-set nocompatible                 " отключить совместимость с vi
-filetype off                     " для установки плагинов
-filetype plugin indent on        " идентификация и подключение плагинов в соответствии с файломы
+set nocompatible                    " disable vi
+syntax enable                       " autolight syntax
+syntax sync minlines=256
+set synmaxcol=300
+filetype plugin indent on           " load modules for file of type
+au BufWinLeave * silent! mkview     " make vim save view (state) (folds, cursor, etc)
+au BufWinEnter * silent! loadview   " make vim load view (state) (folds, cursor, etc)
 " ==================== global settings ===================="}}}
 
 " ==================== leader ===================="{{{
@@ -47,72 +52,82 @@ let g:mapleader = ","
 
 " ==================== GUI ===================="{{{
 set selection=inclusive
-let &lines = 42                 " количество линий при открытии окна
-let &columns = 100              " количество колонок при открытии окна
-let &scrolloff = 0              " сколько строк внизу и вверху экрана показывать при скроллинге
+set lines=34                    " количество линий при открытии окна
+set columns=110                 " количество колонок при открытии окна
+set scrolloff=0                 " сколько строк внизу и вверху экрана показывать при скроллинге
 set wrap                        " переносить длинные строки
 set number                      " показывать номера строк
-" GUI настройки видимости меню и элементов
 if has("gui_running")
     "set guioptions-=m          " no menu bar
-    set guioptions-=T           " no toolbar
+    "set guioptions-=T          " no toolbar
     "set guioptions-=r          " no scrollbar
     "set guioptions-=L          " remove left-hand scrollbar
+    "set guioptions+=b    
+    set guioptions=
+    set guioptions+=r
 endif
 set lazyredraw          	    " Wait to redraw
 " ==================== GUI ===================="}}}
 
+" ==================== tab of GUI ===================="{{{
+
+" ==================== tab of GUI ===================="}}}
+
 " ==================== colorscheme&&font ===================="{{{
 "colorscheme intellij
 colorscheme molokai
+"set background=black
 set t_Co=256
-set background=dark
 set guifont=Monospace\ 15
-set go=
+set showmatch                   " show start/end bracket
 " ==================== colorscheme&&font ===================="}}}
 
 " ==================== folding ===================="{{{
-"zc - свернуть блок
-"zo - развернуть блок
-"zM - закрыть все блоки
-"zR - открыть все блоки
-"za - инвертирование
-"zf - свернуть выделенное
+"zc - fold block
+"zo - open block
+"zM - fold all block
+"zR - open all block
+"za - inersion
+"zf - fold selected
+"zi - disable folding
 set foldenable                  "включить свoрачивание
-set foldmethod=syntax           "сворачивание на основе синтаксиса
-set foldmethod=indent           "сворачивание на основе отступов
-set foldmethod=manual           "выделяем участок с помощью v и говорим zf
+"set foldmethod=syntax           "сворачивание на основе синтаксиса
+"set foldmethod=indent           "сворачивание на основе отступов
+"set foldmethod=manual           "выделяем участок с помощью v и говорим zf
 set foldmethod=marker           "сворачивание на основе маркеров в тексте
 set foldmarker={{{,}}}          "задаем маркеры начала и конца блока
 " ==================== folding ===================="}}}
 
-" ==================== tabs ===================="{{{
+" ==================== tab of editor ===================="{{{
 set tabstop=4                   "количество пробелов, которыми символ табуляции отображается в тексте. 
 set shiftwidth=4                "регулирование ширины отступов в пробелах, добавляемых командами >> и <<.
 set smarttab                    "добавлению отступа, ширина которого соответствует shiftwidth
 set expandtab                   "в режиме вставки заменяет символ табуляции на соответствующее количество пробелов.
 set et                          " включить автозамену по умолчанию
 set nostartofline 	   		 	" не менять позицию курсора при прыжках по буферу
-set number                      " показывать номера строк
-set nostartofline               " не менять позицию курсора при прыжках по буферу
-"let &tabstop=4                 " количество символов при табах
-"let &shiftwidth=4
 set ai                          " включить автоотступы для новых строк
 set cin                         " включить отступы в стиле Си
 "set listchars=tab:··           " показываем табы в начале строки точками
 "set list
-" ==================== tabs ===================="}}}
+" ==================== tabs of editor ===================="}}}
 
 " ==================== backspace ===================="{{{
 " backspace and cursor keys wrap to previous/next line and maakes backspace key more powerful.
 set backspace=indent,eol,start
 set whichwrap+=b,s,<,>,[,],l,h 	" Перемещать курсор на следующую строку при нажатии на клавиши вправо-влево и пр.
-
 " backspace in Visual mode deletes selection
 vnoremap <BS>
 " ==================== backspace ===================="}}}
 
-" ==================== highlight ===================="{{{
+" ==================== undo ===================="{{{
+set history=1000
+set undodir=~/.vim/undodir/
+set undofile
+set undolevels=1000
+set undoreload=10000
+" ==================== undo ===================="}}}
+
+" ==================== airline&&statusline ===================="{{{
 set showcmd                     " Show me what I'm typing
 set noshowmode                  " Hide native mode indication
 set nocursorcolumn
@@ -122,60 +137,8 @@ highlight SignColumn guibg=#272822
 nnoremap <leader><space> :nohlsearch<CR>
 "always show statusbar
 set laststatus=2
-let g:lightline = {
-      \ 'colorscheme': 'landscape',
-      \ 'mode_map': { 'c': 'NORMAL' },
-      \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ] ]
-      \ },
-      \ 'component_function': {
-      \   'modified': 'LightLineModified',
-      \   'readonly': 'LightLineReadonly',
-      \   'fugitive': 'LightLineFugitive',
-      \   'filename': 'LightLineFilename',
-      \   'fileformat': 'LightLineFileformat',
-      \   'filetype': 'LightLineFiletype',
-      \   'fileencoding': 'LightLineFileencoding',
-      \   'mode': 'LightLineMode',
-      \ },
-      \ 'separator': { 'left': '⮀', 'right': '⮂' },
-      \ 'subseparator': { 'left': '⮁', 'right': '⮃' }
-      \ }
-
-function! LightLineModified()
-  return &ft =~ 'help\|vimfiler\|gundo' ? '' : &modified ? '+' : &modifiable ? '' : '-'
-endfunction
-function! LightLineReadonly()
-  return &ft !~? 'help\|vimfiler\|gundo' && &readonly ? '⭤' : ''
-endfunction
-function! LightLineFilename()
-  return ('' != LightLineReadonly() ? LightLineReadonly() . ' ' : '') .
-        \ (&ft == 'vimfiler' ? vimfiler#get_status_string() :
-        \  &ft == 'unite' ? unite#get_status_string() :
-        \  &ft == 'vimshell' ? vimshell#get_status_string() :
-        \ '' != expand('%:t') ? expand('%:t') : '[No Name]') .
-        \ ('' != LightLineModified() ? ' ' . LightLineModified() : '')
-endfunction
-function! LightLineFugitive()
-  if &ft !~? 'vimfiler\|gundo' && exists("*fugitive#head")
-    let _ = fugitive#head()
-    return strlen(_) ? '⭠ '._ : ''
-  endif
-  return ''
-endfunction
-function! LightLineFileformat()
-  return winwidth(0) > 70 ? &fileformat : ''
-endfunction
-function! LightLineFiletype()
-  return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype : 'no ft') : ''
-endfunction
-function! LightLineFileencoding()
-  return winwidth(0) > 70 ? (strlen(&fenc) ? &fenc : &enc) : ''
-endfunction
-function! LightLineMode()
-  return winwidth(0) > 60 ? lightline#mode() : ''
-endfunction
-" ==================== highlight ===================="}}}
+"set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
+" ==================== highlight&&statusline ===================="}}}
 
 " ==================== search ===================="{{{
 set hlsearch                    " Highlight found searches
@@ -279,17 +242,6 @@ if 1
 endif
 " ==================== keymaps ===================="}}}
 
-" ==================== syntax ===================="{{{
-syntax enable                   " autolight syntax
-syntax sync minlines=256
-set nocursorcolumn              " speed up syntax highlighting
-set nocursorline
-set synmaxcol=300
-set re=1
-set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
-set showmatch                   " show start/end bracket
-" ==================== syntax ===================="}}}
-
 " ==================== NERDComment ===================="{{{
 nmap <C-\> :call NERDComment(0, "toggle")<cr>
 vmap <C-\> :call NERDComment(0, "toggle")<cr>
@@ -307,8 +259,8 @@ imap <C-t> <esc>:CommandT /Users/fatih/Code/koding<cr>
 " ==================== CommandT ===================="}}}
 
 " ==================== fugitive git ===================="{{{
-nnoremap <leader>ga :Git add %:p<CR><CR>
 nnoremap <leader>gs :Gstatus<CR>
+nnoremap <leader>ga :Git add %:p<CR><CR>
 nnoremap <leader>gp :Gpush<CR>
 vnoremap <leader>gb :Gblame<CR>
 " ==================== fugitive git ===================="}}}
@@ -334,7 +286,6 @@ set wildignore+=*.orig                           " Merge resolution files
 " ==================== wildmenu ===================="}}}
 
 " ==================== YouCompleteMe ===================="{{{
-
 "let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
 "let g:ycm_add_preview_to_completeopt = 1
 "let g:ycm_autoclose_preview_window_after_completion = 1
@@ -359,7 +310,6 @@ set complete=.,w,b,u,t
 set completeopt=longest,menuone
 let g:ycm_autoclose_preview_window_after_completion = 1
 let g:ycm_min_num_of_chars_for_completion = 1
-
 map <C-]> :YcmCompleter GoToImprecise<CR>
 " ==================== YouCompleteMe ===================="}}}
 
@@ -413,6 +363,14 @@ let g:javascript_conceal_static     = "•"
 let g:javascript_conceal_super      = "Ω"
 " ==================== vim-javascript ===================="}}}
 
+" ==================== vim-javascript ===================="{{{
+autocmd FileType javascript noremap <buffer> <leader>m :call JsBeautify()<cr>
+autocmd FileType json noremap <buffer> <c-f> :call JsonBeautify()<cr>
+autocmd FileType jsx noremap <buffer> <c-f> :call JsxBeautify()<cr>
+autocmd FileType html noremap <buffer> <c-f> :call HtmlBeautify()<cr>
+autocmd FileType css noremap <buffer> <c-f> :call CSSBeautify()<cr>
+" ==================== vim-javascript ===================="}}}
+
 " ==================== backup ===================="{{{
 set nobackup         " не делать бэкапы
 set nowritebackup    " не делать бекапы во время набора текста
@@ -435,13 +393,5 @@ function! BackupDir()
    " переопределим расширение файла резервной копии
    let &backupext=strftime('~%Y-%m-%d~')
 endfunction
-" помнить историю буфера даже после закрытия файлов
-if version >= 700
-    set history=64
-    set undolevels=128
-    set undodir=~/.vim/undodir/
-    set undofile
-    set undolevels=1000
-    set undoreload=10000
-endif
+
 " ==================== backup ===================="}}}
