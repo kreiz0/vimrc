@@ -3,37 +3,37 @@ if has('win32') "{{{
     "set ffs=unix,dos,mac
     "set fencs=utf-8,cp1251,koi8-r,ucs-2,cp866
 else
-        " Vundle init 
-        set rtp+=~/.vim/bundle/Vundle.vim
-        "set rtp+=/home/jaime/.vim/vimrc/plugin
-        "set runtimepath=$XDG_CONFIG_HOME/vim,/$XDG_CONFIG_HOME/vim/after,/usr/share/vim/vimfiles,/usr/share/vim/vim74,/usr/share/vim/vimfiles/after,/home/jaime/.vim/bundle/Vundle.vim,/home/jaime/.vim/vimrc/plugin
-        call vundle#begin()
-        Plugin 'ruscmd'
-        Plugin 'https://github.com/terryma/vim-multiple-cursors'
-        Plugin 'tpope/vim-fugitive'
-        Plugin 'wincent/command-t'
-        Plugin 'vim-airline/vim-airline'
-        Plugin 'gmarik/Vundle.vim'
-        Plugin 'matze/vim-move'
-        "Plugin 'textmanip.vim'
-        Plugin 'The-NERD-Commenter'
-        Plugin 'The-NERD-tree'
-        Plugin 'nerdtree-ack'
-        Plugin 'NERD_Tree-and-ack'
-        Plugin 'FindInNERDTree'
-        Plugin 'NERD_tree-Project'
-        " syntax plugins 
-        Plugin 'Valloric/YouCompleteMe', { 'do': './install.sh' }
-        Plugin 'fatih/vim-go'
-        Plugin 'garyburd/go-explorer'
-        Plugin 'majutsushi/tagbar'
-        Plugin 'pangloss/vim-javascript'
-        Plugin 'maksimr/vim-jsbeautify'
-        Plugin 'fontsize'
-        " plugin init from folder
-        "Plugin 'mimicpak.vim
-        "Plugin 'color_sample_pack.vim'
-        call vundle#end()
+    " Vundle init 
+    set rtp+=~/.vim/bundle/Vundle.vim
+    "set rtp+=/home/jaime/.vim/vimrc/plugin
+    "set runtimepath=$XDG_CONFIG_HOME/vim,/$XDG_CONFIG_HOME/vim/after,/usr/share/vim/vimfiles,/usr/share/vim/vim74,/usr/share/vim/vimfiles/after,/home/jaime/.vim/bundle/Vundle.vim,/home/jaime/.vim/vimrc/plugin
+    call vundle#begin()
+    Plugin 'gmarik/Vundle.vim'    
+    Plugin 'ruscmd'
+    Plugin 'https://github.com/terryma/vim-multiple-cursors'
+    Plugin 'tpope/vim-fugitive'
+    Plugin 'wincent/command-t'
+    Plugin 'vim-airline/vim-airline'
+    Plugin 'matze/vim-move'
+    "Plugin 'textmanip.vim'
+    Plugin 'The-NERD-Commenter'
+    Plugin 'The-NERD-tree'
+    Plugin 'nerdtree-ack'
+    Plugin 'NERD_Tree-and-ack'
+    Plugin 'FindInNERDTree'
+    Plugin 'NERD_tree-Project'
+    " syntax plugins 
+    Plugin 'Valloric/YouCompleteMe', { 'do': './install.sh --gocode-completer --clang-completer --tern-completer' }
+    Plugin 'fatih/vim-go'
+    Plugin 'garyburd/go-explorer'
+    Plugin 'majutsushi/tagbar'
+    Plugin 'pangloss/vim-javascript'
+    Plugin 'maksimr/vim-jsbeautify'
+    Plugin 'fontsize'
+    " plugin init from folder
+    "Plugin 'mimicpak.vim
+    "Plugin 'color_sample_pack.vim'
+    call vundle#end()
 endif           "}}}
 
 " ==================== global settings ===================="{{{
