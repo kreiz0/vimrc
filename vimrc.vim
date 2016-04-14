@@ -15,6 +15,7 @@ else
         Plugin 'vim-airline/vim-airline'
         Plugin 'gmarik/Vundle.vim'
         Plugin 'matze/vim-move'
+        "Plugin 'textmanip.vim'
         Plugin 'The-NERD-Commenter'
         Plugin 'The-NERD-tree'
         Plugin 'nerdtree-ack'
@@ -93,7 +94,7 @@ set showmatch                   " show start/end bracket
 set foldenable                  "включить свoрачивание
 "set foldmethod=syntax           "сворачивание на основе синтаксиса
 "set foldmethod=indent           "сворачивание на основе отступов
-"set foldmethod=manual           "выделяем участок с помощью v и говорим zf
+set foldmethod=manual           "выделяем участок с помощью v и говорим zf
 set foldmethod=marker           "сворачивание на основе маркеров в тексте
 set foldmarker={{{,}}}          "задаем маркеры начала и конца блока
 " ==================== folding ===================="}}}

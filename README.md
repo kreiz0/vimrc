@@ -1,2 +1,14 @@
-# vimrc
-It's my .vimrc file!
+# vimrc (Ubuntu 15.10, nodejs 5.8, npm 3.7.3, ctags 5.9, Python 3.4.3, GCC 5.2.1)
+## Preparation
+
+0.  `echo "source ~/.vim/vimrc/vimrc.vim" > ~/.vimrc`
+1.  `mkdir ~/.vim`
+2.  `mkdir ~/.vim/undodir`
+3.  `mkdir ~/.vim/colors`
+4.  `mkdir ~/.vim/doc`
+5.  `mkdir ~/.vim/view`
+6.  `cd ~/.vim`
+7.  `git clone https://github.com/asm-jaime/vimrc`
+8.  `git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim`
+9.  `npm -g install js-beautify`
+10. ...
