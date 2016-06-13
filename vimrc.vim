@@ -23,7 +23,7 @@ else
     Plugin 'FindInNERDTree'
     Plugin 'NERD_tree-Project'
     " syntax plugins 
-    Plugin 'Valloric/YouCompleteMe', { 'do': './install.sh --gocode-completer --clang-completer --tern-completer' }
+    Plugin 'Valloric/YouCompleteMe', { 'do': './install.sh --gocode-completer --tern-completer --clang-completer --system-libclang --system-boost' }
     Plugin 'fatih/vim-go'
     Plugin 'garyburd/go-explorer'
     Plugin 'majutsushi/tagbar'
@@ -287,11 +287,7 @@ set wildignore+=*.orig                           " Merge resolution files
 " ==================== wildmenu ===================="}}}
 
 " ==================== YouCompleteMe ===================="{{{
-"let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
 "let g:ycm_add_preview_to_completeopt = 1
-"let g:ycm_autoclose_preview_window_after_completion = 1
-"let g:ycm_min_num_of_chars_for_completion = 1
-"let g:ycm_min_num_of_chars_for_completion = 1
 ""let g:ycm_auto_trigger = 1
 ""set completeopt-=preview
 "let g:ycm_semantic_triggers =  {
@@ -309,6 +305,7 @@ set wildignore+=*.orig                           " Merge resolution files
   "\ }
 set complete=.,w,b,u,t
 set completeopt=longest,menuone
+let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
 let g:ycm_autoclose_preview_window_after_completion = 1
 let g:ycm_min_num_of_chars_for_completion = 1
 map <C-]> :YcmCompleter GoToImprecise<CR>
@@ -362,9 +359,7 @@ let g:javascript_conceal_NaN        = "ℕ"
 let g:javascript_conceal_prototype  = "¶"
 let g:javascript_conceal_static     = "•"
 let g:javascript_conceal_super      = "Ω"
-" ==================== vim-javascript ===================="}}}
 
-" ==================== vim-javascript ===================="{{{
 autocmd FileType javascript noremap <buffer> <leader>m :call JsBeautify()<cr>
 autocmd FileType json noremap <buffer> <c-f> :call JsonBeautify()<cr>
 autocmd FileType jsx noremap <buffer> <c-f> :call JsxBeautify()<cr>
