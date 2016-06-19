@@ -71,8 +71,120 @@ set lazyredraw          	    " Wait to redraw
 " ==================== GUI ===================="}}}
 
 " ==================== tab of GUI ===================="{{{
+":tab ball        - show each buffer in a tab (up to 'tabpagemax' tabs)
+":tab help        - open a new help window in its own tab page
+":tab drop {file} - open {file} in a new tab, or jump to a window/tab containing the file if there is one
+":tab split       - copy the current window to a new tab of its own
+
+":tabs            - list all tabs including their displayed windows
+":tabm 0          - move current tab to first
+":tabm            - move current tab to last
+":tabm {i}        - move current tab to position i+1
+
+":tabn            - go to next tab
+":tabp            - go to previous tab
+":tabfirst        - go to first tab
+":tablast         - go to last tab
+
+"gt               - go to next tab
+"gT               - go to previous tab
+"{i}gt            - go to tab in position i
+"Ctrl-PgDn        - go to next tab
+"Ctrl-PgUp        - go to previous tab
+
+":tabdo %s/foo/bar/g
+
+ca tn tabnew
+ca th tabp
+ca tl tabn
+" new tab of tab menu
+nnoremap <A-n> :tabnew<CR>
+" 
 
 " ==================== tab of GUI ===================="}}}
+
+" ==================== split windows buffers ===================="{{{
+":e filename         - edit another file
+":split filename     - split window and load another file
+
+"ctrl-w up arrow     - move cursor up a window
+"ctrl-w ctrl-w       - move cursor to another window (cycle)
+"Сtrl-w o            - expand window
+"Ctrl-w c            - close window
+"Ctrl-w s            - horisontal split
+"Ctrl-w v            - vertical split
+"Ctrl-w ]            - split and move
+"Ctrl-w f            - split and open file-path on cursor
+":sb[uffer]          - split and edit buffer. Note: when you open split again, buffer will be clear
+"ctrl-w_             - maximize current window
+"ctrl-w=             - make all equal size
+"10 ctrl-w+          - increase window size by 10 lines
+"ctrl-w ctrl-p       - move cursor prev window
+
+"Ctrl-W K            - vertical to horisontal
+"Ctrl-W H            - horisontal to vertical
+
+":vsplit file        - vertical split
+":sview file         - same as split, but readonly
+":hide               - close current window
+":only               - keep only this window open
+":ls                 - show current buffers
+":b 2                - open buffer #2 in this window
+" ==================== split windows buffers ===================="}}}
+
+" ==================== navigation ===================="{{{
+"h                   - move one character left
+"j                   - move one row down
+"k                   - move one row up
+"l                   - move one character right
+"w                   - move to beginning of next word
+"b                   - move to previous beginning of word
+"e                   - move to end of word
+"W                   - move to beginning of next word after a whitespace
+"B                   - move to beginning of previous word before a whitespace
+"E                   - move to end of word before a whitespace
+"0                   - move to beginning of line
+"$                   - move to end of line
+"_                   - move to first non-blank character of the line
+"g_                  - move to last non-blank character of the line
+"gg                  - move to first line
+"G                   - move to last line
+"nG                  - move to n'th line of file (n is a number; 12G moves to line 12)
+"H                   - move to top of screen
+"M                   - move to middle of screen
+"L                   - move to bottom of screen
+"z.                  - scroll the line with the cursor to the center of the screen
+"zt                  - scroll the line with the cursor to the top
+"zb                  - scroll the line with the cursor to the bottom
+
+"Ctrl-D              - move half-page down
+"Ctrl-U              - move half-page up
+"Ctrl-B              - page up
+"Ctrl-F              - page down
+"Ctrl-O              - jump to last (older) cursor position
+"Ctrl-I              - jump to next cursor position (after Ctrl-O)
+
+"n                   - next matching search pattern
+"N                   - previous matching search pattern
+"*                   - next whole word under cursor
+"#                   - previous whole word under cursor
+"g*                  - next matching search (not whole word) pattern under cursor
+"g#                  - previous matching search (not whole word) pattern under cursor
+"%                   - jump to matching bracket { } [ ] ( )
+
+"fX                  - to next 'X' after cursor, in the same line (X is any character)
+"FX                  - to previous 'X' before cursor (f and F put the cursor on X)
+"tX                  - til next 'X' (similar to above, but cursor is before X)
+"TX                  - til previous 'X'
+
+";                   - repeat above, in same direction
+",                   - repeat above, in reverse direction
+" ==================== navigation ===================="}}}
+
+" ==================== cursor ===================="{{{
+" disable moving cursor anywhere
+set ve=
+" ==================== cursor ===================="}}}
 
 " ==================== colorscheme&&font ===================="{{{
 "colorscheme intellij
@@ -115,7 +227,8 @@ set cin                         " включить отступы в стиле 
 " ==================== backspace ===================="{{{
 " backspace and cursor keys wrap to previous/next line and maakes backspace key more powerful.
 set backspace=indent,eol,start
-set whichwrap+=b,s,<,>,[,],l,h 	" Перемещать курсор на следующую строку при нажатии на клавиши вправо-влево и пр.
+" next string on edge current string
+set whichwrap+=b,s,<,>,[,],l,h
 " backspace in Visual mode deletes selection
 vnoremap <BS>
 " ==================== backspace ===================="}}}
@@ -129,10 +242,11 @@ set undoreload=10000
 " ==================== undo ===================="}}}
 
 " ==================== airline&&statusline ===================="{{{
-set showcmd                     " Show me what I'm typing
-set noshowmode                  " Hide native mode indication
-set nocursorcolumn
-set nocursorline
+set showcmd                      " Show me what I'm typing
+set noshowmode                   " Hide native mode indication
+set nocursorcolumn               " Hide counter colum for other plugin
+set nocursorline                 " Hide counter colum for other plugin
+
 highlight SignColumn guibg=#272822
 " Remove search highlight
 nnoremap <leader><space> :nohlsearch<CR>
@@ -167,7 +281,7 @@ map <F8> :TagbarToggle<CR>
 " ==================== tagbar ===================="}}}
 
 " ==================== hide found lihgt ===================="{{{
-"nnoremap <esc> :noh<return><esc>
+nnoremap <C-esc> :noh<return><esc>
 map <F7> :set hlsearch!<CR>
 " ==================== hide found lihgt ===================="}}}
 
