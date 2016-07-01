@@ -23,8 +23,15 @@ else
     Plugin 'FindInNERDTree'
     Plugin 'NERD_tree-Project'
     " syntax plugins 
-    Plugin 'Valloric/YouCompleteMe', { 'do': './install.sh --gocode-completer --tern-completer --clang-completer --system-libclang --system-boost' }
+    "Plugin 'scrooloose/syntastic'
+    Plugin 'Valloric/YouCompleteMe', { 'do': './install.sh --gocode-completer --tern-completer --clang-completer --system-boost' }
+    Plugin 'SirVer/ultisnips'
+    Plugin 'honza/vim-snippets'
+    Plugin 'SuperTab'
+    Plugin 'rdnetto/YCM-Generator',  { 'branch': 'stable'}
+    Plugin 'octol/vim-cpp-enhanced-highlight'
     Plugin 'fatih/vim-go'
+    "Plugin 'nsf/gocode', { 'rtp': 'vim', 'do': '~/PROJECTS/golang/src/github.com/nsf/gocode/vim/symlink.sh' }
     Plugin 'garyburd/go-explorer'
     Plugin 'majutsushi/tagbar'
     Plugin 'pangloss/vim-javascript'
@@ -53,21 +60,22 @@ let g:mapleader = ","
 
 " ==================== GUI ===================="{{{
 set selection=inclusive
-set lines=34                    " количество линий при открытии окна
-set columns=110                 " количество колонок при открытии окна
-set scrolloff=0                 " сколько строк внизу и вверху экрана показывать при скроллинге
-set wrap                        " переносить длинные строки
-set number                      " показывать номера строк
+"set lines=34                       " count line when open
+"set columns=110                    " count column when open
+set scrolloff=0                     " count line below when scroll
+set wrap                            " newline for long string
+set textwidth=0 wrapmargin=0
+set number                          " show num each line
 if has("gui_running")
-    "set guioptions-=m          " no menu bar
-    "set guioptions-=T          " no toolbar
-    "set guioptions-=r          " no scrollbar
-    "set guioptions-=L          " remove left-hand scrollbar
-    "set guioptions+=b    
+    "set guioptions-=m              " no menu bar
+    "set guioptions-=T              " no toolbar
+    "set guioptions-=r              " no scrollbar
+    "set guioptions-=L              " remove left-hand scrollbar
+    "set guioptions+=b
     set guioptions=
     set guioptions+=r
 endif
-set lazyredraw          	    " Wait to redraw
+set lazyredraw          	        " wait to redraw
 " ==================== GUI ===================="}}}
 
 " ==================== tab of GUI ===================="{{{
@@ -99,8 +107,6 @@ ca th tabp
 ca tl tabn
 " new tab of tab menu
 nnoremap <A-n> :tabnew<CR>
-" 
-
 " ==================== tab of GUI ===================="}}}
 
 " ==================== split windows buffers ===================="{{{
@@ -181,10 +187,21 @@ nnoremap <A-n> :tabnew<CR>
 ",                   - repeat above, in reverse direction
 " ==================== navigation ===================="}}}
 
-" ==================== cursor ===================="{{{
+" ==================== multi+cursor ===================="{{{
+"``                 - switch between the last and current position
+"''                 - switch between the last string number and current string number
+"Ctrl-O             - move back to previous position cursor
+"Ctrl-I             - move next to previous position cursor
+"g;                 - move back previous edit locations
+"g,                 - move next previous edit locations
 " disable moving cursor anywhere
 set ve=
-" ==================== cursor ===================="}}}
+let g:multi_cursor_use_default_mapping=0
+let g:multi_cursor_next_key='<C-n>'
+let g:multi_cursor_prev_key='<C-p>'
+let g:multi_cursor_skip_key='<C-x>'
+let g:multi_cursor_quit_key='<Esc>'
+" ==================== multi+cursor ===================="}}}
 
 " ==================== colorscheme&&font ===================="{{{
 "colorscheme intellij
@@ -192,7 +209,7 @@ colorscheme molokai
 "set background=black
 set t_Co=256
 set guifont=Monospace\ 15
-set showmatch                   " show start/end bracket
+set showmatch                       " show start/end bracket
 " ==================== colorscheme&&font ===================="}}}
 
 " ==================== folding ===================="{{{
@@ -204,18 +221,18 @@ set showmatch                   " show start/end bracket
 "zf - fold selected
 "zi - disable folding
 set foldenable                  "включить свoрачивание
-"set foldmethod=syntax           "сворачивание на основе синтаксиса
-"set foldmethod=indent           "сворачивание на основе отступов
+"set foldmethod=syntax          "сворачивание на основе синтаксиса
+"set foldmethod=indent          "сворачивание на основе отступов
 set foldmethod=manual           "выделяем участок с помощью v и говорим zf
 set foldmethod=marker           "сворачивание на основе маркеров в тексте
 set foldmarker={{{,}}}          "задаем маркеры начала и конца блока
 " ==================== folding ===================="}}}
 
 " ==================== tab of editor ===================="{{{
-set tabstop=4                   "количество пробелов, которыми символ табуляции отображается в тексте. 
-set shiftwidth=4                "регулирование ширины отступов в пробелах, добавляемых командами >> и <<.
-set smarttab                    "добавлению отступа, ширина которого соответствует shiftwidth
-set expandtab                   "в режиме вставки заменяет символ табуляции на соответствующее количество пробелов.
+set tabstop=4                   " количество пробелов, которыми символ табуляции отображается в тексте. 
+set shiftwidth=4                " регулирование ширины отступов в пробелах, добавляемых командами >> и <<.
+set smarttab                    " добавлению отступа, ширина которого соответствует shiftwidth
+set expandtab                   " в режиме вставки заменяет символ табуляции на соответствующее количество пробелов.
 set et                          " включить автозамену по умолчанию
 set nostartofline 	   		 	" не менять позицию курсора при прыжках по буферу
 set ai                          " включить автоотступы для новых строк
@@ -277,7 +294,34 @@ imap <F12> <esc>:NERDTreeToggle<cr>i
 " ==================== NERDTree ===================="}}}
 
 " ==================== tagbar ===================="{{{
-map <F8> :TagbarToggle<CR>
+map <F11> :TagbarToggle<CR>
+let g:tagbar_type_go = {  
+    \ 'ctagstype' : 'go',
+    \ 'kinds'     : [
+        \ 'p:package',
+        \ 'i:imports:1',
+        \ 'c:constants',
+        \ 'v:variables',
+        \ 't:types',
+        \ 'n:interfaces',
+        \ 'w:fields',
+        \ 'e:embedded',
+        \ 'm:methods',
+        \ 'r:constructor',
+        \ 'f:functions'
+    \ ],
+    \ 'sro' : '.',
+    \ 'kind2scope' : {
+        \ 't' : 'ctype',
+        \ 'n' : 'ntype'
+    \ },
+    \ 'scope2kind' : {
+        \ 'ctype' : 't',
+        \ 'ntype' : 'n'
+    \ },
+    \ 'ctagsbin'  : 'gotags',
+    \ 'ctagsargs' : '-sort -silent'
+\ }
 " ==================== tagbar ===================="}}}
 
 " ==================== hide found lihgt ===================="{{{
@@ -400,10 +444,25 @@ set wildignore+=*.pyc                            " Python byte code
 set wildignore+=*.orig                           " Merge resolution files
 " ==================== wildmenu ===================="}}}
 
+" ==================== Complete ===================="{{{
+"set completeopt=menu,menuone,longest,preview
+
+set completeopt=menu,preview,longest
+".: The current buffer
+"w: Buffers in other windows
+"b: Other loaded buffers
+"u: Unloaded buffers
+"t: Tags
+"i: Included files
+set complete=.,w,b,u,t,i
+inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
+"set pumheight=15
+"highlight Pmenu ctermfg=255
+"set updatetime=500
+" ==================== Complete ===================="}}}
+
 " ==================== YouCompleteMe ===================="{{{
-"let g:ycm_add_preview_to_completeopt = 1
-""let g:ycm_auto_trigger = 1
-""set completeopt-=preview
 "let g:ycm_semantic_triggers =  {
   "\   'c' : ['->', '.'],
   "\   'objc' : ['->', '.'],
@@ -417,35 +476,68 @@ set wildignore+=*.orig                           " Merge resolution files
   "\   'lua' : ['.', ':'],
   "\   'erlang' : [':'],
   "\ }
-set complete=.,w,b,u,t
-set completeopt=longest,menuone
-let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
+
+"map <Leader>y :YcmForceCompileAndDiagnostics<CR>
+let g:ycm_min_num_identifier_candidate_chars = 0
+let g:ycm_min_num_of_chars_for_completion = 2
+let g:ycm_add_preview_to_completeopt = 1
 let g:ycm_autoclose_preview_window_after_completion = 1
-let g:ycm_min_num_of_chars_for_completion = 1
+
+let g:ycm_auto_trigger = 1
 map <C-]> :YcmCompleter GoToImprecise<CR>
 " ==================== YouCompleteMe ===================="}}}
 
+" ==================== Syntastic ===================="{{{
+" Syntastic
+"let g:syntastic_check_on_open=1
+"let g:syntastic_cpp_compiler = 'clang++'
+"let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++'
+"let g:syntastic_javascript_checkers = ['jshint']
+" ==================== Syntastic ===================="}}}
+
+" ==================== snips ===================="{{{
+" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+"let g:UltiSnipsExpandTrigger="<c-t>"
+"let g:UltiSnipsJumpForwardTrigger="<c-b>"
+"let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
+" ==================== snips ===================="}}}
+
+" ==================== c++ ===================="{{{
+"let g:ycm_global_ycm_extra_conf = "~/.vim/ycm_global_conf.py"
+let g:cpp_class_scope_highlight = 1
+let g:cpp_experimental_template_highlight = 1
+let c_no_curly_error=1
+au BufNewFile,BufRead,BufEnter *.cpp,*.h,*.hpp set omnifunc=cpp#complete#Complete filetype=cpp
+" ==================== c++ ===================="}}}
+
 " ==================== go ===================="{{{
+"let g:go_fmt_options = "-tabstop=4 -shiftwidth=4 -smarttab -expandtab -tabs=false -tabwidth=4"
+"let g:go_goimports_bin = "goimports -tabs=false -tabwidth=4 -tabstop=4 -shiftwidth=4 -smarttab -expandtab"
+"let g:go_fmt_autosave = 0
+let g:go_autodetect_gopath = 1
+
+"let g:go_fmt_command = "goimports"
+"let g:go_fmt_options = "-smarttab"
+let g:go_fmt_fail_silently = 0
+
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_types = 1
 let g:go_highlight_structs = 1
 let g:go_highlight_interfaces = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
-"let g:go_fmt_options = "-tabstop=4 -shiftwidth=4 -smarttab -expandtab"
-"let g:go_fmt_options = "-smarttab"
-"let g:go_goimports_bin = "goimports -tabs=false -tabwidth=4"
-"let g:go_goimports_bin = "goimports -tabstop=4 -shiftwidth=4 -smarttab -expandtab"
-"let g:go_fmt_autosave = 0
-let g:go_fmt_fail_silently = 0
-"let g:go_fmt_command = "goimports"
 
-let g:go_autodetect_gopath = 1
 let g:go_highlight_space_tab_error = 0
 let g:go_highlight_array_whitespace_error = 0
 let g:go_highlight_trailing_whitespace_error = 0
 let g:go_highlight_extra_types = 0
 let g:go_highlight_operators = 0
+
+let g:syntastic_go_checkers = ['go', 'golint', 'errcheck']
 
 au FileType go nmap <Leader>s <Plug>(go-def-split)
 au FileType go nmap <Leader>v <Plug>(go-def-vertical)
@@ -459,10 +551,10 @@ au FileType go nmap <leader>t  <Plug>(go-test-compile)
 au FileType go nmap <Leader>d <Plug>(go-doc)
 au FileType go nmap <Leader>f :GoImports<CR>
 
-au BufNewFile,BufRead *.go setlocal noet ts=4 sw=4 sts=4
+au BufNewFile,BufRead *.go set omnifunc=gocomplete#Complete filetype=go noet ts=4 sw=4 sts=4
 " ==================== go ===================="}}}
 
-" ==================== vim-javascript ===================="{{{
+" ==================== javascript ===================="{{{
 let g:javascript_enable_domhtmlcss  = 1
 let g:javascript_conceal_function   = "ƒ"
 let g:javascript_conceal_null       = "ø"
@@ -479,7 +571,7 @@ autocmd FileType json noremap <buffer> <c-f> :call JsonBeautify()<cr>
 autocmd FileType jsx noremap <buffer> <c-f> :call JsxBeautify()<cr>
 autocmd FileType html noremap <buffer> <c-f> :call HtmlBeautify()<cr>
 autocmd FileType css noremap <buffer> <c-f> :call CSSBeautify()<cr>
-" ==================== vim-javascript ===================="}}}
+" ==================== javascript ===================="}}}
 
 " ==================== backup ===================="{{{
 set nobackup         " не делать бэкапы

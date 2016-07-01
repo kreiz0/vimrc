@@ -8,6 +8,7 @@ pip-log.txt
 test.vim
 
 bundle
-doc
 undodir
 view
+
+*.pyc
