@@ -10,23 +10,21 @@ else
     call vundle#begin()
     Plugin 'gmarik/Vundle.vim'    
     Plugin 'ruscmd'
-    Plugin 'https://github.com/terryma/vim-multiple-cursors'
+    Plugin 'terryma/vim-multiple-cursors'
     Plugin 'tpope/vim-fugitive'
-    Plugin 'wincent/command-t'
+    "Plugin 'wincent/command-t'
     Plugin 'vim-airline/vim-airline'
     Plugin 'matze/vim-move'
     "Plugin 'textmanip.vim'
     Plugin 'The-NERD-Commenter'
     Plugin 'The-NERD-tree'
-    Plugin 'nerdtree-ack'
     Plugin 'NERD_Tree-and-ack'
-    Plugin 'FindInNERDTree'
     Plugin 'NERD_tree-Project'
     " syntax plugins 
     "Plugin 'scrooloose/syntastic'
     Plugin 'Valloric/YouCompleteMe', { 'do': './install.sh --gocode-completer --tern-completer --clang-completer --system-boost' }
-    Plugin 'SirVer/ultisnips'
-    Plugin 'honza/vim-snippets'
+    "Plugin 'SirVer/ultisnips'
+    "Plugin 'honza/vim-snippets'
     Plugin 'SuperTab'
     Plugin 'rdnetto/YCM-Generator',  { 'branch': 'stable'}
     Plugin 'octol/vim-cpp-enhanced-highlight'
@@ -36,7 +34,7 @@ else
     Plugin 'majutsushi/tagbar'
     Plugin 'pangloss/vim-javascript'
     Plugin 'maksimr/vim-jsbeautify'
-    Plugin 'fontsize'
+    "Plugin 'fontsize'
     " plugin init from folder
     "Plugin 'mimicpak.vim
     "Plugin 'color_sample_pack.vim'
@@ -129,6 +127,7 @@ nnoremap <A-n> :tabnew<CR>
 
 "Ctrl-W K            - vertical to horisontal
 "Ctrl-W H            - horisontal to vertical
+"Ctrl-W r            - swap
 
 ":vsplit file        - vertical split
 ":sview file         - same as split, but readonly
@@ -167,8 +166,6 @@ nnoremap <A-n> :tabnew<CR>
 "Ctrl-U              - move half-page up
 "Ctrl-B              - page up
 "Ctrl-F              - page down
-"Ctrl-O              - jump to last (older) cursor position
-"Ctrl-I              - jump to next cursor position (after Ctrl-O)
 
 "n                   - next matching search pattern
 "N                   - previous matching search pattern
@@ -199,7 +196,7 @@ set ve=
 let g:multi_cursor_use_default_mapping=0
 let g:multi_cursor_next_key='<C-n>'
 let g:multi_cursor_prev_key='<C-p>'
-let g:multi_cursor_skip_key='<C-x>'
+let g:multi_cursor_skip_key='<C->'
 let g:multi_cursor_quit_key='<Esc>'
 " ==================== multi+cursor ===================="}}}
 
@@ -288,6 +285,7 @@ set smartcase                   " ... but not when search pattern contains upper
 " ==================== rus keymap ===================="}}}
 
 " ==================== NERDTree ===================="{{{
+let NERDTreeShowHidden=1
 map <F12> :NERDTreeToggle<cr>
 vmap <F12> <esc>:NERDTreeToggle<cr>i
 imap <F12> <esc>:NERDTreeToggle<cr>i
@@ -420,8 +418,9 @@ imap <C-t> <esc>:CommandT /Users/fatih/Code/koding<cr>
 " ==================== fugitive git ===================="{{{
 nnoremap <leader>gs :Gstatus<CR>
 nnoremap <leader>ga :Git add %:p<CR><CR>
+nnoremap <leader>gc :Gcommit<CR>
 nnoremap <leader>gp :Gpush<CR>
-vnoremap <leader>gb :Gblame<CR>
+"vnoremap <leader>gb :Gblame<CR>
 " ==================== fugitive git ===================="}}}
 
 " ==================== wildmenu ===================="{{{
@@ -447,7 +446,7 @@ set wildignore+=*.orig                           " Merge resolution files
 " ==================== Complete ===================="{{{
 "set completeopt=menu,menuone,longest,preview
 
-set completeopt=menu,preview,longest
+set completeopt=menuone,preview,longest
 ".: The current buffer
 "w: Buffers in other windows
 "b: Other loaded buffers
@@ -456,7 +455,13 @@ set completeopt=menu,preview,longest
 "i: Included files
 set complete=.,w,b,u,t,i
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-
+"inoremap <@> <C-x><C-o>
+"if has("autocmd") && exists("+omnifunc")
+  "autocmd Filetype *
+          "\	if &omnifunc == "" |
+          "\		setlocal omnifunc=syntaxcomplete#Complete |
+          "\	endif
+"endif
 "set pumheight=15
 "highlight Pmenu ctermfg=255
 "set updatetime=500
@@ -508,8 +513,11 @@ let g:UltiSnipsEditSplit="vertical"
 "let g:ycm_global_ycm_extra_conf = "~/.vim/ycm_global_conf.py"
 let g:cpp_class_scope_highlight = 1
 let g:cpp_experimental_template_highlight = 1
+let g:C_UseTool_cmake = 'yes'
+let g:C_UseTool_doxygen = 'yes'
 let c_no_curly_error=1
-au BufNewFile,BufRead,BufEnter *.cpp,*.h,*.hpp set omnifunc=cpp#complete#Complete filetype=cpp
+
+"au BufNewFile,BufRead,BufEnter *.cpp,*.h,*.hpp set omnifunc=cpp#complete#Complete filetype=cpp
 " ==================== c++ ===================="}}}
 
 " ==================== go ===================="{{{
@@ -551,7 +559,7 @@ au FileType go nmap <leader>t  <Plug>(go-test-compile)
 au FileType go nmap <Leader>d <Plug>(go-doc)
 au FileType go nmap <Leader>f :GoImports<CR>
 
-au BufNewFile,BufRead *.go set omnifunc=gocomplete#Complete filetype=go noet ts=4 sw=4 sts=4
+"au BufNewFile,BufRead *.go set omnifunc=gocomplete#Complete filetype=go noet ts=4 sw=4 sts=4
 " ==================== go ===================="}}}
 
 " ==================== javascript ===================="{{{
@@ -566,11 +574,17 @@ let g:javascript_conceal_prototype  = "¶"
 let g:javascript_conceal_static     = "•"
 let g:javascript_conceal_super      = "Ω"
 
-autocmd FileType javascript noremap <buffer> <leader>m :call JsBeautify()<cr>
+autocmd FileType javascript noremap <buffer> <F5> :call Run()<cr>
+
+autocmd FileType javascript noremap <buffer> <leader>m :call JsonBeautify()<cr>
 autocmd FileType json noremap <buffer> <c-f> :call JsonBeautify()<cr>
 autocmd FileType jsx noremap <buffer> <c-f> :call JsxBeautify()<cr>
 autocmd FileType html noremap <buffer> <c-f> :call HtmlBeautify()<cr>
 autocmd FileType css noremap <buffer> <c-f> :call CSSBeautify()<cr>
+
+function! Run()
+  exec "! node %"
+endfunction
 " ==================== javascript ===================="}}}
 
 " ==================== backup ===================="{{{
@@ -595,5 +609,4 @@ function! BackupDir()
    " переопределим расширение файла резервной копии
    let &backupext=strftime('~%Y-%m-%d~')
 endfunction
-
 " ==================== backup ===================="}}}
