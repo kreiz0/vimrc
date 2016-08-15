@@ -13,4 +13,4 @@
 9.  `npm -g install js-beautify`
 10. `etc...`
 
-YouCompleteMe(`./install.sh --gocode-completer --clang-completer --tern-completer`), vim-go, vim-jsbeautify and tagbar requare individual installation.
+YouCompleteMe(`./install.sh --gocode-completer --clang-completer --tern-completer`), vim-go, vim-jsbeautify and tagbar will be required an individual installation.
