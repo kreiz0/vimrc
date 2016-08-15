@@ -574,16 +574,22 @@ let g:javascript_conceal_prototype  = "¶"
 let g:javascript_conceal_static     = "•"
 let g:javascript_conceal_super      = "Ω"
 
-autocmd FileType javascript noremap <buffer> <F5> :call Run()<cr>
+autocmd FileType javascript noremap buffer> <F5> :call Run()<cr>
 
-autocmd FileType javascript noremap <buffer> <leader>m :call JsonBeautify()<cr>
-autocmd FileType json noremap <buffer> <c-f> :call JsonBeautify()<cr>
-autocmd FileType jsx noremap <buffer> <c-f> :call JsxBeautify()<cr>
-autocmd FileType html noremap <buffer> <c-f> :call HtmlBeautify()<cr>
-autocmd FileType css noremap <buffer> <c-f> :call CSSBeautify()<cr>
+autocmd FileType javascript noremap <buffer> <leader>j :call JsBeautify()<cr>
+autocmd FileType json       noremap <buffer> <leader>j :call JsonBeautify()<cr>
+autocmd FileType jsx        noremap <buffer> <leader>j :call JsxBeautify()<cr>
+autocmd FileType html       noremap <buffer> <leader>j :call HtmlBeautify()<cr>
+autocmd FileType css        noremap <buffer> <leader>j :call CSSBeautify()<cr>
+
+autocmd FileType javascript setlocal shiftwidth=2 tabstop=2
+autocmd FileType json setlocal shiftwidth=2 tabstop=2
+autocmd FileType jsx setlocal shiftwidth=2 tabstop=2
+autocmd FileType html setlocal shiftwidth=2 tabstop=2
+autocmd FileType css setlocal shiftwidth=2 tabstop=2
 
 function! Run()
-  exec "! node %"
+    exec "! node %"
 endfunction
 " ==================== javascript ===================="}}}
 

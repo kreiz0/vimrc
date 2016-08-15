@@ -10,5 +10,6 @@ test.vim
 bundle
 undodir
 view
+sessions
 
 *.pyc
