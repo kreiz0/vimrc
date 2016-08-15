@@ -58,8 +58,8 @@ let g:mapleader = ","
 
 " ==================== GUI ===================="{{{
 set selection=inclusive
-"set lines=34                       " count line when open
-"set columns=110                    " count column when open
+set lines=34                        " count line when open
+set columns=110                     " count column when open
 set scrolloff=0                     " count line below when scroll
 set wrap                            " newline for long string
 set textwidth=0 wrapmargin=0
