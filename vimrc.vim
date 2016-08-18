@@ -32,6 +32,8 @@ else
     "Plugin 'nsf/gocode', { 'rtp': 'vim', 'do': '~/PROJECTS/golang/src/github.com/nsf/gocode/vim/symlink.sh' }
     Plugin 'garyburd/go-explorer'
     Plugin 'majutsushi/tagbar'
+    Plugin 'ternjs/tern_for_vim'
+    Plugin 'https://github.com/heavenshell/vim-jsdoc.git'
     Plugin 'pangloss/vim-javascript'
     Plugin 'maksimr/vim-jsbeautify'
     "Plugin 'fontsize'
@@ -469,26 +471,29 @@ inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
 " ==================== YouCompleteMe ===================="{{{
 "let g:ycm_semantic_triggers =  {
-  "\   'c' : ['->', '.'],
-  "\   'objc' : ['->', '.'],
-  "\   'ocaml' : ['.', '#'],
-  "\   'cpp,objcpp' : ['->', '.', '::'],
-  "\   'perl' : ['->'],
-  "\   'php' : ['->', '::'],
-  "\   'cs,java,javascript,d,python,perl6,scala,vb,elixir,go' : ['.'],
-  "\   'vim' : ['re![_a-zA-Z]+[_\w]*\.'],
-  "\   'ruby' : ['.', '::'],
-  "\   'lua' : ['.', ':'],
-  "\   'erlang' : [':'],
-  "\ }
+"\   'c' : ['->', '.'],
+"\   'objc' : ['->', '.'],
+"\   'ocaml' : ['.', '#'],
+"\   'cpp,objcpp' : ['->', '.', '::'],
+"\   'perl' : ['->'],
+"\   'php' : ['->', '::'],
+"\   'cs,java,javascript,d,python,perl6,scala,vb,elixir,go' : ['.'],
+"\   'vim' : ['re![_a-zA-Z]+[_\w]*\.'],
+"\   'ruby' : ['.', '::'],
+"\   'lua' : ['.', ':'],
+"\   'erlang' : [':'],
+"\ }
 
 "map <Leader>y :YcmForceCompileAndDiagnostics<CR>
+
+let g:ycm_path_to_python_interpreter = '/usr/bin/python'
 let g:ycm_min_num_identifier_candidate_chars = 0
 let g:ycm_min_num_of_chars_for_completion = 2
 let g:ycm_add_preview_to_completeopt = 1
 let g:ycm_autoclose_preview_window_after_completion = 1
 
 let g:ycm_auto_trigger = 1
+set omnifunc=syntaxcomplete#Complete
 map <C-]> :YcmCompleter GoToImprecise<CR>
 " ==================== YouCompleteMe ===================="}}}
 
@@ -552,18 +557,19 @@ au FileType go nmap <Leader>v <Plug>(go-def-vertical)
 au FileType go nmap <Leader>in <Plug>(go-info)
 au FileType go nmap <Leader>ii <Plug>(go-implements)
 
-au FileType go nmap <leader>r  <Plug>(go-run)
+au FileType go nmap <F5>  <Plug>(go-run)
 au FileType go nmap <leader>b  <Plug>(go-build)
 au FileType go nmap <leader>g  <Plug>(go-gbbuild)
 au FileType go nmap <leader>t  <Plug>(go-test-compile)
-au FileType go nmap <Leader>d <Plug>(go-doc)
+au FileType go nmap <F2> <Plug>(go-doc)
 au FileType go nmap <Leader>f :GoImports<CR>
 
-"au BufNewFile,BufRead *.go set omnifunc=gocomplete#Complete filetype=go noet ts=4 sw=4 sts=4
+au BufNewFile,BufRead *.go set omnifunc=gocomplete#Complete filetype=go noet ts=4 sw=4 sts=4
 " ==================== go ===================="}}}
 
 " ==================== javascript ===================="{{{
-let g:javascript_enable_domhtmlcss  = 1
+" ==================== vim-javascript
+
 let g:javascript_conceal_function   = "ƒ"
 let g:javascript_conceal_null       = "ø"
 let g:javascript_conceal_this       = "@"
@@ -574,14 +580,22 @@ let g:javascript_conceal_prototype  = "¶"
 let g:javascript_conceal_static     = "•"
 let g:javascript_conceal_super      = "Ω"
 
-autocmd FileType javascript noremap buffer> <F5> :call Run()<cr>
-
+let g:javascript_enable_domhtmlcss  = 1
+let g:javascript_plugin_jsdoc       = 1
+let g:javascript_plugin_ngdoc       = 1
+let g:javascript_plugin_flow        = 1
+" ==================== tern
+autocmd FileType javascript,jsx noremap <buffer> <F2> :TernDoc<cr>
+autocmd FileType javascript,jsx noremap <buffer> <F3> <Plug>(jsdoc)
+autocmd FileType javascript,jsx,json,html,css noremap <buffer> <F4> :TernDef<cr>
+" ==================== JsBeautify
+autocmd FileType javascript noremap <buffer> <F5> :call Run()<cr>
 autocmd FileType javascript noremap <buffer> <leader>j :call JsBeautify()<cr>
 autocmd FileType json       noremap <buffer> <leader>j :call JsonBeautify()<cr>
 autocmd FileType jsx        noremap <buffer> <leader>j :call JsxBeautify()<cr>
 autocmd FileType html       noremap <buffer> <leader>j :call HtmlBeautify()<cr>
 autocmd FileType css        noremap <buffer> <leader>j :call CSSBeautify()<cr>
-
+" ==================== tabs
 autocmd FileType javascript setlocal shiftwidth=2 tabstop=2
 autocmd FileType json setlocal shiftwidth=2 tabstop=2
 autocmd FileType jsx setlocal shiftwidth=2 tabstop=2
@@ -589,7 +603,7 @@ autocmd FileType html setlocal shiftwidth=2 tabstop=2
 autocmd FileType css setlocal shiftwidth=2 tabstop=2
 
 function! Run()
-    exec "! node %"
+    exec "! babel-node %"
 endfunction
 " ==================== javascript ===================="}}}
 
