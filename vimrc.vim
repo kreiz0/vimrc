@@ -205,7 +205,7 @@ let g:multi_cursor_quit_key='<Esc>'
 " ==================== colorscheme&&font ===================="{{{
 "colorscheme intellij
 colorscheme molokai
-"set background=black
+set background=dark
 set t_Co=256
 set guifont=Monospace\ 15
 set showmatch                       " show start/end bracket

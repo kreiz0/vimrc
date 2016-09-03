@@ -79,7 +79,7 @@ def FlagsForFile( filename ):
     objc = True
 
   if cplusplus:
-    final_flags += [ '-std=c++11' ]
+    final_flags += [ '-std=c++14' ]
   else:
     final_flags += [ '-std=c99' ]
 
