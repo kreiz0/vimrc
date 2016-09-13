@@ -227,6 +227,14 @@ set foldmethod=marker           "сворачивание на основе ма
 set foldmarker={{{,}}}          "задаем маркеры начала и конца блока
 " ==================== folding ===================="}}}
 
+
+" ==================== abbreviations ===================="{{{
+" ==================== clang define a beginning/ending box
+iabbrev #b /************************************************
+iabbrev #e ************************************************/
+iabbrev #= ====================
+" ==================== abbreviations ===================="}}}
+
 " ==================== tab of editor ===================="{{{
 set tabstop=4                   " количество пробелов, которыми символ табуляции отображается в тексте. 
 set shiftwidth=4                " регулирование ширины отступов в пробелах, добавляемых командами >> и <<.
@@ -458,12 +466,13 @@ set completeopt=menuone,preview,longest
 set complete=.,w,b,u,t,i
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 "inoremap <@> <C-x><C-o>
-"if has("autocmd") && exists("+omnifunc")
-  "autocmd Filetype *
-          "\	if &omnifunc == "" |
-          "\		setlocal omnifunc=syntaxcomplete#Complete |
-          "\	endif
-"endif
+if has("autocmd") && exists("+omnifunc")
+  autocmd Filetype *
+          \	if &omnifunc == "" |
+          \		setlocal omnifunc=syntaxcomplete#Complete |
+          \	endif
+endif
+
 "set pumheight=15
 "highlight Pmenu ctermfg=255
 "set updatetime=500
@@ -493,7 +502,8 @@ let g:ycm_add_preview_to_completeopt = 1
 let g:ycm_autoclose_preview_window_after_completion = 1
 
 let g:ycm_auto_trigger = 1
-set omnifunc=syntaxcomplete#Complete
+autocmd FileType javascript,go,c,cpp set omnifunc=syntaxcomplete#Complete
+
 map <C-]> :YcmCompleter GoToImprecise<CR>
 " ==================== YouCompleteMe ===================="}}}
 
