@@ -8,38 +8,40 @@ else
     "set rtp+=/home/jaime/.vim/vimrc/plugin
     "set runtimepath=$XDG_CONFIG_HOME/vim,/$XDG_CONFIG_HOME/vim/after,/usr/share/vim/vimfiles,/usr/share/vim/vim74,/usr/share/vim/vimfiles/after,/home/jaime/.vim/bundle/Vundle.vim,/home/jaime/.vim/vimrc/plugin
     call vundle#begin()
-    Plugin 'gmarik/Vundle.vim'    
-    Plugin 'ruscmd'
-    Plugin 'terryma/vim-multiple-cursors'
-    Plugin 'tpope/vim-fugitive'
+    Plugin 'gmarik/Vundle.vim'
+    "==================== potential useful 
     "Plugin 'wincent/command-t'
-    Plugin 'vim-airline/vim-airline'
-    Plugin 'matze/vim-move'
     "Plugin 'textmanip.vim'
+    "Plugin 'fontsize'    
+    "Plugin 'scrooloose/syntastic'
+    "Plugin 'SirVer/ultisnips'
+    "Plugin 'honza/vim-snippets'
+    "Plugin 'nsf/gocode', { 'rtp': 'vim', 'do': '~/BUFF/PROJECTS/golang/src/github.com/nsf/gocode/vim/symlink.sh' }    
+    " ==================== text transformation 
+    Plugin 'terryma/vim-multiple-cursors'
+    Plugin 'matze/vim-move'
+    Plugin 'SuperTab'
+    " ==================== git
+    Plugin 'tpope/vim-fugitive'
+    " ==================== information
+    Plugin 'vim-airline/vim-airline'
+    Plugin 'majutsushi/tagbar'
+    " ==================== dir navigation
     Plugin 'The-NERD-Commenter'
     Plugin 'The-NERD-tree'
     Plugin 'NERD_Tree-and-ack'
     Plugin 'NERD_tree-Project'
-    " syntax plugins 
-    "Plugin 'scrooloose/syntastic'
-    Plugin 'Valloric/YouCompleteMe', { 'do': './install.sh --gocode-completer --tern-completer --clang-completer --system-boost' }
-    "Plugin 'SirVer/ultisnips'
-    "Plugin 'honza/vim-snippets'
-    Plugin 'SuperTab'
+    " ==================== you complete me, omnicomplete, etc
+    Plugin 'Valloric/YouCompleteMe', { 'do': './install.sh --gocode-completer --tern-completer --clang-completer' }
     Plugin 'rdnetto/YCM-Generator',  { 'branch': 'stable'}
-    Plugin 'octol/vim-cpp-enhanced-highlight'
+    " ==================== golang
     Plugin 'fatih/vim-go'
-    "Plugin 'nsf/gocode', { 'rtp': 'vim', 'do': '~/PROJECTS/golang/src/github.com/nsf/gocode/vim/symlink.sh' }
     Plugin 'garyburd/go-explorer'
-    Plugin 'majutsushi/tagbar'
+    "==================== javascript
     Plugin 'ternjs/tern_for_vim'
     Plugin 'https://github.com/heavenshell/vim-jsdoc.git'
     Plugin 'pangloss/vim-javascript'
     Plugin 'maksimr/vim-jsbeautify'
-    "Plugin 'fontsize'
-    " plugin init from folder
-    "Plugin 'mimicpak.vim
-    "Plugin 'color_sample_pack.vim'
     call vundle#end()
 endif           "}}}
 
@@ -226,7 +228,6 @@ set foldmethod=manual           "выделяем участок с помощь
 set foldmethod=marker           "сворачивание на основе маркеров в тексте
 set foldmarker={{{,}}}          "задаем маркеры начала и конца блока
 " ==================== folding ===================="}}}
-
 
 " ==================== abbreviations ===================="{{{
 " ==================== clang define a beginning/ending box
@@ -521,7 +522,7 @@ map <C-]> :YcmCompleter GoToImprecise<CR>
 "let g:UltiSnipsJumpForwardTrigger="<c-b>"
 "let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 " If you want :UltiSnipsEdit to split your window.
-let g:UltiSnipsEditSplit="vertical"
+"let g:UltiSnipsEditSplit="vertical"
 " ==================== snips ===================="}}}
 
 " ==================== c++ ===================="{{{
