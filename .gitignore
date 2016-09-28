@@ -5,11 +5,12 @@ npm-debug.log*
 pip-log.txt
 
 #Translations
-test.vim
 
 bundle
 undodir
 view
 sessions
+
+z_buffer
 
 *.pyc

@@ -1,49 +1,40 @@
-if has('win32') "{{{
-    " order applying code
-    "set ffs=unix,dos,mac
-    "set fencs=utf-8,cp1251,koi8-r,ucs-2,cp866
-else
-    " Vundle init 
-    set rtp+=~/.vim/bundle/Vundle.vim
-    "set rtp+=/home/jaime/.vim/vimrc/plugin
-    "set runtimepath=$XDG_CONFIG_HOME/vim,/$XDG_CONFIG_HOME/vim/after,/usr/share/vim/vimfiles,/usr/share/vim/vim74,/usr/share/vim/vimfiles/after,/home/jaime/.vim/bundle/Vundle.vim,/home/jaime/.vim/vimrc/plugin
-    call vundle#begin()
-    Plugin 'gmarik/Vundle.vim'
-    "==================== potential useful 
-    "Plugin 'wincent/command-t'
-    "Plugin 'textmanip.vim'
-    "Plugin 'fontsize'    
-    "Plugin 'scrooloose/syntastic'
-    "Plugin 'SirVer/ultisnips'
-    "Plugin 'honza/vim-snippets'
-    "Plugin 'nsf/gocode', { 'rtp': 'vim', 'do': '~/BUFF/PROJECTS/golang/src/github.com/nsf/gocode/vim/symlink.sh' }    
-    " ==================== text transformation 
-    Plugin 'terryma/vim-multiple-cursors'
-    Plugin 'matze/vim-move'
-    Plugin 'SuperTab'
-    " ==================== git
-    Plugin 'tpope/vim-fugitive'
-    " ==================== information
-    Plugin 'vim-airline/vim-airline'
-    Plugin 'majutsushi/tagbar'
-    " ==================== dir navigation
-    Plugin 'The-NERD-Commenter'
-    Plugin 'The-NERD-tree'
-    Plugin 'NERD_Tree-and-ack'
-    Plugin 'NERD_tree-Project'
-    " ==================== you complete me, omnicomplete, etc
-    Plugin 'Valloric/YouCompleteMe', { 'do': './install.sh --gocode-completer --tern-completer --clang-completer' }
-    Plugin 'rdnetto/YCM-Generator',  { 'branch': 'stable'}
-    " ==================== golang
-    Plugin 'fatih/vim-go'
-    Plugin 'garyburd/go-explorer'
-    "==================== javascript
-    Plugin 'ternjs/tern_for_vim'
-    Plugin 'https://github.com/heavenshell/vim-jsdoc.git'
-    Plugin 'pangloss/vim-javascript'
-    Plugin 'maksimr/vim-jsbeautify'
-    call vundle#end()
-endif           "}}}
+" ==================== Vundle init ===================="{{{
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+Plugin 'gmarik/Vundle.vim'
+" ==================== potential useful 
+"Plugin 'wincent/command-t'
+"Plugin 'textmanip.vim'
+"Plugin 'fontsize'    
+"Plugin 'scrooloose/syntastic'
+"Plugin 'SirVer/ultisnips'
+"Plugin 'honza/vim-snippets'
+"Plugin 'matze/vim-move'
+"Plugin 'tpope/vim-fugitive'
+"Plugin 'nsf/gocode', { 'rtp': 'vim', 'do': '~/BUFF/PROJECTS/golang/src/github.com/nsf/gocode/vim/symlink.sh' }    
+" ==================== text transformation 
+Plugin 'terryma/vim-multiple-cursors'
+Plugin 'The-NERD-Commenter'
+" ==================== information
+Plugin 'vim-airline/vim-airline'
+Plugin 'majutsushi/tagbar'
+" ==================== dir navigation
+Plugin 'The-NERD-tree'
+Plugin 'ctrlpvim/ctrlp.vim'
+" ==================== you complete me, omnicomplete, etc
+Plugin 'Valloric/YouCompleteMe', { 'do': './install.sh --gocode-completer --tern-completer --clang-completer' }
+Plugin 'rdnetto/YCM-Generator',  { 'branch': 'stable'}
+Plugin 'SuperTab'
+" ==================== golang
+Plugin 'fatih/vim-go'
+Plugin 'garyburd/go-explorer'
+"==================== javascript
+Plugin 'ternjs/tern_for_vim'
+Plugin 'https://github.com/heavenshell/vim-jsdoc.git'
+Plugin 'pangloss/vim-javascript'
+Plugin 'maksimr/vim-jsbeautify'
+call vundle#end()
+"==================== vundle ==================== }}}
 
 " ==================== global settings ===================="{{{
 set nocompatible                    " disable vi
@@ -204,6 +195,15 @@ let g:multi_cursor_skip_key='<C->'
 let g:multi_cursor_quit_key='<Esc>'
 " ==================== multi+cursor ===================="}}}
 
+" ==================== move lines ===================="{{{
+nnoremap <A-j> :m .+1<CR>==
+nnoremap <A-k> :m .-2<CR>==
+inoremap <A-j> <Esc>:m .+1<CR>==gi
+inoremap <A-k> <Esc>:m .-2<CR>==gi
+vnoremap <A-j> :m '>+1<CR>gv=gv
+vnoremap <A-k> :m '<-2<CR>gv=gv
+" ==================== move lines ===================="}}}
+
 " ==================== colorscheme&&font ===================="{{{
 "colorscheme intellij
 colorscheme molokai
@@ -259,10 +259,10 @@ vnoremap <BS>
 " ==================== backspace ===================="}}}
 
 " ==================== undo ===================="{{{
-set history=1000
+set history=10000
 set undodir=~/.vim/undodir/
 set undofile
-set undolevels=1000
+set undolevels=10000
 set undoreload=10000
 " ==================== undo ===================="}}}
 
@@ -287,19 +287,9 @@ set ignorecase                  " Search case insensitive...
 set smartcase                   " ... but not when search pattern contains upper case characters
 " ==================== search ===================="}}}
 
-" ==================== rus keymap ===================="{{{
-" support russian keymap for command mode
-"set keymap=russian-dvorak
-"set iminsert=0
-"set imsearch=0
-"highlight lCursor guifg=NONE guibg=Cyan
-" ==================== rus keymap ===================="}}}
-
 " ==================== NERDTree ===================="{{{
 let NERDTreeShowHidden=1
-map <F12> :NERDTreeToggle<cr>
-vmap <F12> <esc>:NERDTreeToggle<cr>i
-imap <F12> <esc>:NERDTreeToggle<cr>i
+nmap <silent> <leader><leader> :NERDTreeToggle<CR>
 " ==================== NERDTree ===================="}}}
 
 " ==================== tagbar ===================="{{{
@@ -334,29 +324,11 @@ let g:tagbar_type_go = {
 " ==================== tagbar ===================="}}}
 
 " ==================== hide found lihgt ===================="{{{
-nnoremap <C-esc> :noh<return><esc>
+nnoremap <C-[> :noh<return><esc>
 map <F7> :set hlsearch!<CR>
 " ==================== hide found lihgt ===================="}}}
 
 " ==================== keymap ===================="{{{
-" set the 'cpoptions' to its Vim default only do this when compiled with expression evaluation
-if 1    
-    let s:save_cpo = &cpoptions
-endif
-set cpo&vim
-" set 'selection', 'selectmode', 'mousemodel' and 'keymodel' for MS-Windows
-behave mswin
-" CTRL-X and SHIFT-Del are Cut
-vnoremap <C-X> "+x
-vnoremap <S-Del> "+x
-" CTRL-C and CTRL-Insert are Copy
-vnoremap <C-C> "+y
-vnoremap <C-Insert> "+y
-" CTRL-V and SHIFT-Insert are Paste
-map <C-V>       "+gP
-map <S-Insert>      "+gP
-cmap <C-V>      <C-R>+
-cmap <S-Insert>     <C-R>+
 " CTRL-A is Select all
 noremap <C-A> gggH<C-O>G
 inoremap <C-A> <C-O>gg<C-O>gH<C-O>G
@@ -364,75 +336,36 @@ cnoremap <C-A> <C-C>gggH<C-O>G
 onoremap <C-A> <C-C>gggH<C-O>G
 snoremap <C-A> <C-C>gggH<C-O>G
 xnoremap <C-A> <C-C>ggVG
-" Use CTRL-G u to have CTRL-Z only undo the paste.
-exe 'inoremap <script> <C-V> <C-G>u' . paste#paste_cmd['i']
-exe 'vnoremap <script> <C-V> ' . paste#paste_cmd['v']
-imap <S-Insert>     <C-V>
-vmap <S-Insert>     <C-V>
-" Use CTRL-Q to do what CTRL-V used to do
-noremap <C-Q>       <C-V>
 " Use CTRL-S for saving, also in Insert mode
 noremap <C-s>		:update<CR>
 vnoremap <C-s>		<C-C>:update<CR>
 inoremap <C-s>		<C-O>:update<CR>
-" For CTRL-V to work autoselect must be off.
-" On Unix we have two selections, autoselect can be used.
-if !has("unix")
-    set guioptions-=a
-endif
-" CTRL-Z is Undo; not in cmdline though
-noremap <C-Z> u
-inoremap <C-Z> <C-O>u
-" CTRL-Y is Redo (although not repeat); not in cmdline though
-noremap <C-Y> <C-R>
-inoremap <C-Y> <C-O><C-R>
-" Alt-Space is System menu
-if has("gui")
-    noremap <M-Space> :simalt ~<CR>
-    inoremap <M-Space> <C-O>:simalt ~<CR>
-    cnoremap <M-Space> <C-C>:simalt ~<CR>
-endif
-" CTRL-Tab is Next window
-noremap <C-Tab> <C-W>w
-inoremap <C-Tab> <C-O><C-W>w
-cnoremap <C-Tab> <C-C><C-W>w
-onoremap <C-Tab> <C-C><C-W>w
-" CTRL-F4 is Close window
-noremap <C-F4> <C-W>c
-inoremap <C-F4> <C-O><C-W>c
-cnoremap <C-F4> <C-C><C-W>c
-onoremap <C-F4> <C-C><C-W>c
-" restore 'cpoptions'
-set cpo&
-if 1
-    let &cpoptions = s:save_cpo
-    unlet s:save_cpo
-endif
+" Use CTRL-C for copy to yank to your system's clipboard
+vnoremap <C-c> "+y
+" copy-paste with system clipboard
+set clipboard=unnamedplus
+
+" Allow to copy/paste between VIM instances
+
+" copy the current visual selection to ~/.vbuf
+vmap <Leader>y :w! ~/.vbuf<CR>
+" copy the current line to the buffer file if no visual selection
+nmap <Leader>y :.w! ~/.vbuf<CR>
+" paste the contents of the buffer file
+nmap <Leader>p :r ~/.vbuf<CR>
+
 " ==================== keymaps ===================="}}}
 
 " ==================== NERDComment ===================="{{{
-nmap <C-\> :call NERDComment(0, "toggle")<cr>
-vmap <C-\> :call NERDComment(0, "toggle")<cr>
-imap <C-\> :call NERDComment(0, "toggle")<cr>
+" Add spaces after comment delimiters by default
+let g:NERDSpaceDelims = 1
+" Use compact syntax for prettified multi-line comments
+let g:NERDCompactSexyComs = 1
+" Allow commenting and inverting empty lines (useful when commenting a region)
+let g:NERDCommentEmptyLines = 1
+" Enable trimming of trailing whitespace when uncommenting
+let g:NERDTrimTrailingWhitespace = 1
 " ==================== NERDComment ===================="}}}
-
-" ==================== CommandT ===================="{{{
-let g:CommandTMaxHeight = 20
-let g:CommandTMaxFiles = 500000
-let g:CommandTMatchWindowReverse = 1
-let g:CommandTMaxCachedDirectories = 0
-let g:CommandTHighlightColor = 'Typedef'
-nmap <C-t> :CommandT /Users/fatih/Code/koding<cr>
-imap <C-t> <esc>:CommandT /Users/fatih/Code/koding<cr>
-" ==================== CommandT ===================="}}}
-
-" ==================== fugitive git ===================="{{{
-nnoremap <leader>gs :Gstatus<CR>
-nnoremap <leader>ga :Git add %:p<CR><CR>
-nnoremap <leader>gc :Gcommit<CR>
-nnoremap <leader>gp :Gpush<CR>
-"vnoremap <leader>gb :Gblame<CR>
-" ==================== fugitive git ===================="}}}
 
 " ==================== wildmenu ===================="{{{
 set wildmenu
@@ -508,33 +441,20 @@ autocmd FileType javascript,go,c,cpp set omnifunc=syntaxcomplete#Complete
 map <C-]> :YcmCompleter GoToImprecise<CR>
 " ==================== YouCompleteMe ===================="}}}
 
-" ==================== Syntastic ===================="{{{
-" Syntastic
-"let g:syntastic_check_on_open=1
-"let g:syntastic_cpp_compiler = 'clang++'
-"let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++'
-"let g:syntastic_javascript_checkers = ['jshint']
-" ==================== Syntastic ===================="}}}
-
-" ==================== snips ===================="{{{
-" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
-"let g:UltiSnipsExpandTrigger="<c-t>"
-"let g:UltiSnipsJumpForwardTrigger="<c-b>"
-"let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-" If you want :UltiSnipsEdit to split your window.
-"let g:UltiSnipsEditSplit="vertical"
-" ==================== snips ===================="}}}
-
-" ==================== c++ ===================="{{{
+" ==================== c ===================="{{{
 "let g:ycm_global_ycm_extra_conf = "~/.vim/ycm_global_conf.py"
-let g:cpp_class_scope_highlight = 1
-let g:cpp_experimental_template_highlight = 1
-let g:C_UseTool_cmake = 'yes'
-let g:C_UseTool_doxygen = 'yes'
-let c_no_curly_error=1
+" === enable doxygen highlighting
+augroup project
+    autocmd!
+    autocmd BufRead,BufNewFile *.h,*.c set filetype=c.doxygen
+augroup END
 
+" === gf command (<C-W><C-F>), to open file in new tab
+let &path.="src/include,/usr/include/AL,"
+
+let c_no_curly_error=1
 "au BufNewFile,BufRead,BufEnter *.cpp,*.h,*.hpp set omnifunc=cpp#complete#Complete filetype=cpp
-" ==================== c++ ===================="}}}
+" ==================== c ===================="}}}
 
 " ==================== go ===================="{{{
 "let g:go_fmt_options = "-tabstop=4 -shiftwidth=4 -smarttab -expandtab -tabs=false -tabwidth=4"
@@ -618,26 +538,8 @@ function! Run()
 endfunction
 " ==================== javascript ===================="}}}
 
-" ==================== backup ===================="{{{
-set nobackup         " не делать бэкапы
-set nowritebackup    " не делать бекапы во время набора текста
-set noswapfile       " не делать свопыы
-""" Сохранять умные резервные копии ежедневно
-function! BackupDir()
-   " определим каталог для сохранения резервной копии
-   if has('win32')
-        let l:backupdir = $TEMP.'\backup'
-    else
-        let l:backupdir = $VIMRUNTIME.'/backup/'.
-        \substitute(expand('%:p:h'), '^'.$HOME, '~', '')
-    endif
-   " если каталог не существует, создадим его рекурсивно
-   if !isdirectory(l:backupdir)
-      call mkdir(l:backupdir, 'p', 0700)
-   endif
-   " переопределим каталог для резервных копий
-   let &backupdir=l:backupdir
-   " переопределим расширение файла резервной копии
-   let &backupext=strftime('~%Y-%m-%d~')
-endfunction
-" ==================== backup ===================="}}}
+" ==================== backup ====================" {{{
+set nobackup
+set nowritebackup
+set noswapfile
+" ==================== backup ====================" }}}
