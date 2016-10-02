@@ -15,12 +15,14 @@ Plugin 'gmarik/Vundle.vim'
 " ==================== text transformation 
 Plugin 'terryma/vim-multiple-cursors'
 Plugin 'The-NERD-Commenter'
+Plugin 'tpope/vim-surround'
 " ==================== information
 Plugin 'vim-airline/vim-airline'
 Plugin 'majutsushi/tagbar'
 " ==================== dir navigation
 Plugin 'The-NERD-tree'
 Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'benmills/vimux'
 " ==================== you complete me, omnicomplete, etc
 Plugin 'Valloric/YouCompleteMe', { 'do': './install.sh --gocode-completer --tern-completer --clang-completer' }
 Plugin 'rdnetto/YCM-Generator',  { 'branch': 'stable'}
@@ -177,6 +179,9 @@ nnoremap <A-n> :tabnew<CR>
 
 ";                   - repeat above, in same direction
 ",                   - repeat above, in reverse direction
+
+" shift+{            - to start paragraph
+" shift+}            - to end paragraph
 " ==================== navigation ===================="}}}
 
 " ==================== multi+cursor ===================="{{{
@@ -196,12 +201,16 @@ let g:multi_cursor_quit_key='<Esc>'
 " ==================== multi+cursor ===================="}}}
 
 " ==================== move lines ===================="{{{
+" # press z+i(disable folding), if you want move a line through folding
 nnoremap <A-j> :m .+1<CR>==
 nnoremap <A-k> :m .-2<CR>==
 inoremap <A-j> <Esc>:m .+1<CR>==gi
 inoremap <A-k> <Esc>:m .-2<CR>==gi
 vnoremap <A-j> :m '>+1<CR>gv=gv
 vnoremap <A-k> :m '<-2<CR>gv=gv
+" ==================== newline without imode
+nmap oo o<Esc>
+nmap OO O<Esc>
 " ==================== move lines ===================="}}}
 
 " ==================== colorscheme&&font ===================="{{{
@@ -330,18 +339,11 @@ map <F7> :set hlsearch!<CR>
 
 " ==================== keymap ===================="{{{
 " CTRL-A is Select all
-noremap <C-A> gggH<C-O>G
-inoremap <C-A> <C-O>gg<C-O>gH<C-O>G
-cnoremap <C-A> <C-C>gggH<C-O>G
-onoremap <C-A> <C-C>gggH<C-O>G
-snoremap <C-A> <C-C>gggH<C-O>G
-xnoremap <C-A> <C-C>ggVG
+noremap <C-A>  ggVG
 " Use CTRL-S for saving, also in Insert mode
-noremap <C-s>		:update<CR>
-vnoremap <C-s>		<C-C>:update<CR>
-inoremap <C-s>		<C-O>:update<CR>
+noremap <C-s>   :update<CR>
 " Use CTRL-C for copy to yank to your system's clipboard
-vnoremap <C-c> "+y
+noremap <C-c> "+y
 " copy-paste with system clipboard
 set clipboard=unnamedplus
 
