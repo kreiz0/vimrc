@@ -38,6 +38,8 @@ Plugin 'maksimr/vim-jsbeautify'
 call vundle#end()
 "==================== vundle ==================== }}}
 
+if has("gui_running")
+
 " ==================== global settings ===================="{{{
 set nocompatible                    " disable vi
 syntax enable                       " autolight syntax
@@ -431,6 +433,8 @@ endif
 
 "map <Leader>y :YcmForceCompileAndDiagnostics<CR>
 
+let g:python_host_prog = '/usr/bin/python'
+
 let g:ycm_path_to_python_interpreter = '/usr/bin/python'
 let g:ycm_min_num_identifier_candidate_chars = 0
 let g:ycm_min_num_of_chars_for_completion = 2
@@ -545,3 +549,5 @@ set nobackup
 set nowritebackup
 set noswapfile
 " ==================== backup ====================" }}}
+
+endif

@@ -2,7 +2,9 @@
 ### my system: (Ubuntu 15.10, nodejs 5.8, npm 3.7.3, ctags 5.9, Python 3.4.3, GCC 5.2.1)
 
 ## Preparation
-#### `echo "source ~/.vim/vimrc.vim" > ~/.vimrc`
+#### `ln -s ~/.vim/vimrc.vim ~/.vimrc`
+#### `ln -s ~/.vim/conf_zsh/.zshrc ~/.zshrc`
+#### `ln -s ~/.vim/conf_tmux/.tmux.conf ~/.tmux.conf`
 #### `mkdir ~/.vim`
 #### `mkdir ~/.vim/undodir`
 #### `mkdir ~/.vim/colors`
