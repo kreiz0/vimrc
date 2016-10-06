@@ -59,8 +59,8 @@ bindkey -M vicmd v edit-command-line
 alias meld="PYTHONPATH=/usr/local/lib/python2.7/site-packages meld"
 
 # ==================== tmux section ====================# {{{
-ZSH_TMUX_AUTOSTART=true
-ZSH_TMUX_AUTOSTART_ONCE=false
+# ZSH_TMUX_AUTOSTART=true
+# ZSH_TMUX_AUTOSTART_ONCE=false
 # ZSH_TMUX_AUTOCONNECT=true
 # DISABLE_AUTO_TITLE=true
 # # new session new tmux
