@@ -112,7 +112,7 @@ fi
 unsetopt correct_all
 
 # ==================== golang section ==================== # {{{
-export GOPATH=$HOME/BUFF/PROJECTS/golang
+export GOPATH=$HOME/BUFF/projects/golang
 #export GOROOT=/usr/local/go
 export PATH=$PATH:$GOPATH/bin
 #export PATH=$PATH:$GOROOT/bin
