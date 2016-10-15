@@ -24,7 +24,7 @@ Plugin 'The-NERD-tree'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'benmills/vimux'
 " ==================== you complete me, omnicomplete, etc
-Plugin 'Valloric/YouCompleteMe', { 'do': './install.sh --gocode-completer --tern-completer --clang-completer' }
+Plugin 'Valloric/YouCompleteMe', { 'do': './install.py --gocode-completer --tern-completer --clang-completer' }
 Plugin 'rdnetto/YCM-Generator',  { 'branch': 'stable'}
 Plugin 'SuperTab'
 " ==================== golang
@@ -38,7 +38,7 @@ Plugin 'maksimr/vim-jsbeautify'
 call vundle#end()
 "==================== vundle ==================== }}}
 
-if has("gui_running")
+" if has("gui_running")
 
 " ==================== global settings ===================="{{{
 set nocompatible                    " disable vi
@@ -550,4 +550,4 @@ set nowritebackup
 set noswapfile
 " ==================== backup ====================" }}}
 
-endif
+" endif
