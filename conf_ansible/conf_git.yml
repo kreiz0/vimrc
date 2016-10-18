@@ -1,0 +1,27 @@
+---
+- hosts: localhost
+  become: sudo
+
+  tasks:
+    - name: Install git
+      apt: pkg=git state=present
+    - name: Install vmware tools
+      local_action: shell sudo chmod 0600 "/home/jaime/.ssh/id_rsa"
+    - name: Premission for id_rsa.pub
+      local_action: shell sudo chmod 0600 "/home/jaime/.ssh/id_rsa.pub"
+    - name: Premission for known_hosts
+      local_action: shell sudo chmod 0644 "/home/jaime/.ssh/known_hosts"
+    - name: Premission for id_rsa.pub
+      local_action: shell sudo chmod 0755 "/home/jaime/.ssh"
+    - name: Configure git user.name
+      local_action: shell git config --global user.name "asm-jaime"
+    - name: Configure git user.email
+      local_action: shell git config --global user.email "asm.jaime@gmail.com"
+    - name: Configure git core.editor
+      local_action: shell git config --global core.editor vim
+    - name: Configure git merge.tool
+      local_action: shell git config --global merge.tool vimdiff
+    - name: Configure git diff3
+      local_action: shell git config --global merge.conflictstyle diff3
+    - name: Configure git mergetool.prompt
+      local_action: shell git config --global mergetool.prompt false

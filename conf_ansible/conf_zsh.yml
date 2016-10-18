@@ -1,0 +1,14 @@
+---
+- hosts: localhost
+  become: sudo
+
+  tasks:
+    - name: Installing Zsh
+      sudo: yes
+      apt: pkg=zsh state=present
+
+    - name: Cloning oh-my-zsh
+      become: jaime
+      git:
+        repo: https://github.com/robbyrussell/oh-my-zsh
+        dest: ~/.oh-my-zsh

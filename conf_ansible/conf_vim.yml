@@ -1,0 +1,112 @@
+---
+- hosts: localhost
+  become: sudo
+
+  vars:
+    - destination: /home/jaime
+
+  tasks:
+    - name: Install git
+      apt: pkg=git state=present
+    - name: Install git-core
+      sudo: yes
+      apt: pkg=git-core state=present
+
+    - name: Install vim
+      apt: pkg=vim state=present
+
+    - name: Install build-essential
+      apt: pkg=build-essential state=present
+    - name: Install libssl-dev
+      apt: pkg=libssl-dev state=present
+    - name: Install ctags
+      apt: pkg=exuberant-ctags state=present
+    - name: Install cmake 
+      sudo: yes
+      apt: pkg=cmake state=present
+    - name: Install node
+      sudo: yes
+      apt: pkg=nodejs state=present
+    - name: Install npm
+      sudo: yes
+      apt: pkg=npm state=present
+
+    - name: Install python-dev
+      sudo: yes
+      apt: pkg=python-dev state=present
+    - name: Install libxml2-dev
+      sudo: yes
+      apt: pkg=libxml2-dev state=present
+    - name: Install bxslt-dev
+      sudo: yes
+      apt: pkg=libxslt-dev state=present
+
+    - name: Install python3.5-dev
+      sudo: yes
+      apt: pkg=python3.5-dev state=present
+    - name: Install python3.5
+      become: sudo
+      apt: pkg=python3.5 state=present
+
+    - name: Install js-beautify
+      local_action: shell sudo npm install -g js-beautify
+    
+    - name: Installing tmux
+      sudo: yes
+      apt: pkg=tmux state=present
+
+    - name: Installing Zsh
+      sudo: yes
+      apt: pkg=zsh state=present
+    - name: Cloning oh-my-zsh
+      become: jaime
+      git:
+        repo: https://github.com/robbyrussell/oh-my-zsh
+        dest: ~/.oh-my-zsh
+
+    - name: Install zsh 
+      sudo: yes
+      local_action: shell wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh
+    - name: Install zsh 
+      become: jaime
+      local_action: shell wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh
+    - name: Zsh as console for sudo
+      sudo: yes
+      local_action: shell chsh -s `which zsh`
+
+    - name: Zsh as console for jaime
+      become: jaime
+      local_action: shell chsh -s `which zsh`
+
+    - name: Clone vimrc repo
+      become: jaime
+      git: 
+        repo=git@github.com:asm-jaime/vimrc.git
+        dest=/home/jaime/.vim
+
+    - name: Creates directory
+      file: 
+        path: ~/.vim/undodir
+        state: directory
+
+    - name: Make link .vimrc
+      file:
+        src: ~/.vim/vimrc.vim
+        dest: ~/.vimrc
+        state: link
+    - name: Make link .tmux.conf
+      file:
+        src: ~/.vim/conf_tmux/.tmux.conf 
+        dest: ~/.tmux.conf
+        state: link
+    - name: Make link .zshrc
+      file:
+        src: ~/.vim/conf_zsh/.zshrc
+        dest: ~/.zshrc
+        state: link
+    
+    - name: clone voundle.vim
+      become: jaime
+      git: 
+        repo: https://github.com/gmarik/Vundle.vim.git
+        dest: ~/.vim/bundle/Vundle.vim

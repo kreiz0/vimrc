@@ -1,0 +1,8 @@
+---
+- hosts: localhost
+  become: sudo
+
+  tasks:
+    - name: Install vi file manager
+      sudo: yes
+      apt: pkg=vifm state=present

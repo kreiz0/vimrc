@@ -1,0 +1,7 @@
+---
+- hosts: localhost
+  sudo: yes
+
+  tasks:
+    - name: Install vmware tools
+      apt: pkg=open-vm-tools-desktop state=latest

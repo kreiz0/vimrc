@@ -1,0 +1,7 @@
+---
+- hosts: localhost
+  become: sudo
+
+  tasks:
+    - name: install git
+      apt: pkg=git

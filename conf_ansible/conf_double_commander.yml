@@ -1,0 +1,8 @@
+---
+- hosts: localhost
+  become: sudo
+
+  tasks:
+    - name: Install doublecmd
+      sudo: yes
+      apt: pkg=doublecmd-qt state=present

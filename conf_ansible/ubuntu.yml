@@ -1,0 +1,17 @@
+---
+- hosts: localhost
+  sudo: yes
+
+  tasks:
+    - name: Ensure 7z is present
+      local_action: apt pkg=p7zip-full state=present
+    - name: copy files
+      copy: src=~/{{ item.src_name }} dest=/tmp/{{ item.dest_name }}                               
+      with_items:                                                                                   
+      - { src_name: VMwareTools*, dest_name: VMwareTools.tar.gz }
+    - name: Extract VMwareTools
+      unarchive: dest=/tmp src="{{item}}"
+      with_fileglob:
+        - /tmp/VMwareTools*.tar.gz
+    - name: Ins  tasks:tall VIM
+      apt: pkg=vim state=present
