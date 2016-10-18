@@ -38,8 +38,6 @@ Plugin 'maksimr/vim-jsbeautify'
 call vundle#end()
 "==================== vundle ==================== }}}
 
-" if has("gui_running")
-
 " ==================== global settings ===================="{{{
 set nocompatible                    " disable vi
 syntax enable                       " autolight syntax
@@ -103,7 +101,7 @@ ca tn tabnew
 ca th tabp
 ca tl tabn
 " new tab of tab menu
-nnoremap <A-n> :tabnew<CR>
+" nnoremap <A-n> :tabnew<CR>
 " ==================== tab of GUI ===================="}}}
 
 " ==================== split windows buffers ===================="{{{
@@ -204,12 +202,12 @@ let g:multi_cursor_quit_key='<Esc>'
 
 " ==================== move lines ===================="{{{
 " # press z+i(disable folding), if you want move a line through folding
-nnoremap <A-j> :m .+1<CR>==
-nnoremap <A-k> :m .-2<CR>==
-inoremap <A-j> <Esc>:m .+1<CR>==gi
-inoremap <A-k> <Esc>:m .-2<CR>==gi
-vnoremap <A-j> :m '>+1<CR>gv=gv
-vnoremap <A-k> :m '<-2<CR>gv=gv
+nnoremap <C-j> :m .+1<CR>==
+nnoremap <C-k> :m .-2<CR>==
+inoremap <C-j> <Esc>:m .+1<CR>==gi
+inoremap <C-k> <Esc>:m .-2<CR>==gi
+vnoremap <C-j> :m '>+1<CR>gv=gv
+vnoremap <C-k> :m '<-2<CR>gv=gv
 " ==================== newline without imode
 nmap oo o<Esc>
 nmap OO O<Esc>
@@ -232,12 +230,12 @@ set showmatch                       " show start/end bracket
 "za - inersion
 "zf - fold selected
 "zi - disable folding
-set foldenable                  "включить свoрачивание
-"set foldmethod=syntax          "сворачивание на основе синтаксиса
-"set foldmethod=indent          "сворачивание на основе отступов
-set foldmethod=manual           "выделяем участок с помощью v и говорим zf
-set foldmethod=marker           "сворачивание на основе маркеров в тексте
-set foldmarker={{{,}}}          "задаем маркеры начала и конца блока
+set foldenable                  " enable folding for structure file
+"set foldmethod=syntax          " syntax folding
+"set foldmethod=indent          " indent folding
+set foldmethod=manual           " enable zf for folding a selected block
+set foldmethod=marker           " enable folding for mark
+set foldmarker={{{,}}}          " mark folding
 " ==================== folding ===================="}}}
 
 " ==================== abbreviations ===================="{{{
@@ -266,7 +264,7 @@ set backspace=indent,eol,start
 " next string on edge current string
 set whichwrap+=b,s,<,>,[,],l,h
 " backspace in Visual mode deletes selection
-vnoremap <BS>
+" vnoremap <BS>
 " ==================== backspace ===================="}}}
 
 " ==================== undo ===================="{{{
@@ -286,6 +284,8 @@ set nocursorline                 " Hide counter colum for other plugin
 highlight SignColumn guibg=#272822
 " Remove search highlight
 nnoremap <leader><space> :nohlsearch<CR>
+" nnoremap <C-[> :noh<return><esc>
+" map <F7> :set hlsearch!<CR>
 "always show statusbar
 set laststatus=2
 "set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
@@ -304,7 +304,8 @@ nmap <silent> <leader><leader> :NERDTreeToggle<CR>
 " ==================== NERDTree ===================="}}}
 
 " ==================== tagbar ===================="{{{
-map <F11> :TagbarToggle<CR>
+" map <F8> :TagbarToggle<CR>
+
 let g:tagbar_type_go = {  
     \ 'ctagstype' : 'go',
     \ 'kinds'     : [
@@ -334,18 +335,13 @@ let g:tagbar_type_go = {
 \ }
 " ==================== tagbar ===================="}}}
 
-" ==================== hide found lihgt ===================="{{{
-nnoremap <C-[> :noh<return><esc>
-map <F7> :set hlsearch!<CR>
-" ==================== hide found lihgt ===================="}}}
-
 " ==================== keymap ===================="{{{
 " CTRL-A is Select all
 noremap <C-A>  ggVG
 " Use CTRL-S for saving, also in Insert mode
-noremap <C-s>   :update<CR>
+" noremap <C-s>   :update<CR>
 " Use CTRL-C for copy to yank to your system's clipboard
-noremap <C-c> "+y
+" noremap <C-c> "+y
 " copy-paste with system clipboard
 set clipboard=unnamedplus
 
@@ -402,7 +398,7 @@ set completeopt=menuone,preview,longest
 "t: Tags
 "i: Included files
 set complete=.,w,b,u,t,i
-inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+" inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 "inoremap <@> <C-x><C-o>
 if has("autocmd") && exists("+omnifunc")
   autocmd Filetype *
@@ -550,4 +546,3 @@ set nowritebackup
 set noswapfile
 " ==================== backup ====================" }}}
 
-" endif

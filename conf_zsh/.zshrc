@@ -49,7 +49,7 @@ DISABLE_AUTO_UPDATE="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git github autojump command-not-found tmux copyfile sprunge web-search urltools)
+plugins=(git github autojump command-not-found tmux copyfile sprunge web-search urltools zsnapshot osx)
 
 export VISUAL=vim
 
@@ -91,11 +91,11 @@ source $ZSH/oh-my-zsh.sh
 export SSH_KEY_PATH="~/.ssh/dsa_id"
 
 # Preferred editor for local and remote sessions
-if [[ -n $SSH_CONNECTION ]]; then
-  export EDITOR='vim'
-else
-  export EDITOR='gvim'
-fi
+# if [[ -n $SSH_CONNECTION ]]; then
+export EDITOR='vim'
+# else
+  # export EDITOR='gvim'
+# fi
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
