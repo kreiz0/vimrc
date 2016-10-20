@@ -8,7 +8,7 @@
       apt: pkg=zsh state=present
 
     - name: Cloning oh-my-zsh
-      become: jaime
+      become: kreizo
       git:
         repo: https://github.com/robbyrussell/oh-my-zsh
         dest: ~/.oh-my-zsh

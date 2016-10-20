@@ -3,7 +3,7 @@
   become: sudo
 
   vars:
-    - destination: /home/jaime
+    - destination: /home/kreizo
 
   tasks:
     - name: Install git
@@ -59,7 +59,7 @@
       sudo: yes
       apt: pkg=zsh state=present
     - name: Cloning oh-my-zsh
-      become: jaime
+      become: kreizo
       git:
         repo: https://github.com/robbyrussell/oh-my-zsh
         dest: ~/.oh-my-zsh
@@ -68,21 +68,21 @@
       sudo: yes
       local_action: shell wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh
     - name: Install zsh 
-      become: jaime
+      become: kreizo
       local_action: shell wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh
     - name: Zsh as console for sudo
       sudo: yes
       local_action: shell chsh -s `which zsh`
 
-    - name: Zsh as console for jaime
-      become: jaime
+    - name: Zsh as console for kreizo
+      become: kreizo
       local_action: shell chsh -s `which zsh`
 
     - name: Clone vimrc repo
-      become: jaime
+      become: kreizo
       git: 
         repo=git@github.com:asm-jaime/vimrc.git
-        dest=/home/jaime/.vim
+        dest=/home/kreizo/.vim
 
     - name: Creates directory
       file: 
@@ -106,7 +106,7 @@
         state: link
     
     - name: clone voundle.vim
-      become: jaime
+      become: kreizo
       git: 
         repo: https://github.com/gmarik/Vundle.vim.git
         dest: ~/.vim/bundle/Vundle.vim
